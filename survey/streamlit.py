@@ -4,6 +4,7 @@ import time
 import os
 from datetime import datetime
 import glob
+import numpy as np
 
 
 st.set_page_config(
@@ -49,7 +50,8 @@ st.markdown(
 @st.cache_data
 def load_data():
     df = pd.read_csv("survey/ds_style_instructions.csv")
-
+    idx = np.random.default_rng(42).choice(500, size=20, replace=False)
+    df = df.iloc[idx]
     required_cols = {"feminine_style", "masculine_style"}
     missing = required_cols - set(df.columns)
     if missing:
@@ -318,14 +320,8 @@ def page6():
 
     response = st.session_state["responses"][current_index]
 
-    contrast_options = [
-        "1: Not contrasted at all",
-        "2: Slightly contrasted",
-        "3: Moderately contrasted",
-        "4: Strongly contrasted",
-        "5: Very strongly contrasted",
-    ]
-
+    feminine_options = ["Text A", "Text B", "About the same"]
+    masculine_options = ["Text A", "Text B", "About the same"]
     confidence_options = [
         "1: Not Confident",
         "2: Somewhat Confident",
@@ -333,18 +329,42 @@ def page6():
         "4: Very Confident",
     ]
 
-    current_contrast = response.get("contrast")
-    contrast_index = contrast_options.index(current_contrast) if current_contrast in contrast_options else None
-
-    response["contrast"] = st.selectbox(
+    # --- Sliders ---
+    response["contrast"] = st.slider(
         "How strongly contrasted are these two texts in feminine vs masculine style?",
-        options=contrast_options,
-        index=contrast_index,
-        key=f"contrast_{current_index}",
-        placeholder="Select an option",
+        min_value=1,
+        max_value=5,
+        value=response.get("contrast", 3),
+        step=1,
+        help="1 = Not contrasted at all, 5 = Very strongly contrasted",
+        key=f"contrast_slider_{current_index}",
     )
+    st.caption("1 = Not contrasted at all · 5 = Very strongly contrasted")
 
-    feminine_options = ["Text A", "Text B", "About the same"]
+    response["content_alignment"] = st.slider(
+        "To what extent do the two texts express the same meaning or content?",
+        min_value=1,
+        max_value=5,
+        value=response.get("content_alignment", 3),
+        step=1,
+        help="1 = Completely different meaning/content, 5 = Same meaning/content",
+        key=f"content_slider_{current_index}",
+    )
+    st.caption("1 = Completely different meaning/content · 5 = Same meaning/content")
+
+    response["grammar_alignment"] = st.slider(
+        "To what extent do the two texts have a similar level of fluency / grammatical acceptability?",
+        min_value=1,
+        max_value=5,
+        value=response.get("grammar_alignment", 3),
+        step=1,
+        help="1 = Very different fluency/grammar level, 5 = Same fluency/grammar level",
+        key=f"grammar_slider_{current_index}",
+    )
+    st.caption("1 = Very different fluency/grammar level · 5 = Same fluency/grammar level")
+
+    st.markdown("---")
+
     current_more_feminine = response.get("more_feminine")
     feminine_index = feminine_options.index(current_more_feminine) if current_more_feminine in feminine_options else None
 
@@ -355,7 +375,6 @@ def page6():
         key=f"more_feminine_{current_index}",
     )
 
-    masculine_options = ["Text A", "Text B", "About the same"]
     current_more_masculine = response.get("more_masculine")
     masculine_index = masculine_options.index(current_more_masculine) if current_more_masculine in masculine_options else None
 
@@ -397,8 +416,7 @@ def page6():
 
     with col_next:
         required_complete = (
-            response.get("contrast") is not None
-            and response.get("more_feminine") is not None
+            response.get("more_feminine") is not None
             and response.get("more_masculine") is not None
             and response.get("confidence") is not None
         )
@@ -415,7 +433,6 @@ def page6():
         1
         for i, r in enumerate(st.session_state["responses"])
         if not bool(data.iloc[i].get("is_attention_check", False))
-        and r.get("contrast") is not None
         and r.get("more_feminine") is not None
         and r.get("more_masculine") is not None
         and r.get("confidence") is not None
