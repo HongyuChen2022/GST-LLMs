@@ -48,7 +48,7 @@ st.markdown(
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv("ds_style_instructions.csv")
+    df = pd.read_csv("survey/ds_style_instructions.csv")
 
     required_cols = {"feminine_style", "masculine_style"}
     missing = required_cols - set(df.columns)
