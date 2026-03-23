@@ -50,7 +50,7 @@ st.markdown(
 @st.cache_data
 def load_data():
     df = pd.read_csv("survey/ds_style_instructions.csv")
-    idx = np.random.default_rng(42).choice(500, size=20, replace=False)
+    idx = np.random.default_rng(42).choice(500, size=5, replace=False)
     df = df.iloc[idx]
     required_cols = {"feminine_style", "masculine_style"}
     missing = required_cols - set(df.columns)
