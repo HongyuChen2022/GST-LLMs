@@ -293,7 +293,6 @@ def page6():
         st.error("Invalid index.")
         return
 
-
     text_a = row["feminine_style"]
     text_b = row["masculine_style"]
     is_attention_check = bool(row.get("is_attention_check", False))
@@ -321,13 +320,19 @@ def page6():
     response = st.session_state["responses"][current_index]
 
     def update_contrast():
-        st.session_state["responses"][current_index]["contrast"] = st.session_state[f"contrast_segmented_{current_index}"]
+        st.session_state["responses"][current_index]["contrast"] = st.session_state.get(
+            f"contrast_segmented_{current_index}"
+        )
 
     def update_content_alignment():
-        st.session_state["responses"][current_index]["content_alignment"] = st.session_state[f"content_segmented_{current_index}"]
+        st.session_state["responses"][current_index]["content_alignment"] = st.session_state.get(
+            f"content_segmented_{current_index}"
+        )
 
     def update_grammar_alignment():
-        st.session_state["responses"][current_index]["grammar_alignment"] = st.session_state[f"grammar_segmented_{current_index}"]
+        st.session_state["responses"][current_index]["grammar_alignment"] = st.session_state.get(
+            f"grammar_segmented_{current_index}"
+        )
 
     contrast_options = [
         "1: Not contrasted at all",
@@ -363,49 +368,55 @@ def page6():
         "4: Very Confident",
     ]
 
-    contrast_value = response.get("contrast", None)
-    content_value = response.get("content_alignment", None)
-    grammar_value = response.get("grammar_alignment", None)
+    contrast_value = response.get("contrast")
+    content_value = response.get("content_alignment")
+    grammar_value = response.get("grammar_alignment")
 
     st.markdown("**Style contrast**")
-    st.segmented_control(
-        "How strongly contrasted are these two texts in feminine vs masculine style?",
-        contrast_options,
-        default=contrast_value,
+    contrast_kwargs = dict(
+        label="How strongly contrasted are these two texts in feminine vs masculine style?",
+        options=contrast_options,
         key=f"contrast_segmented_{current_index}",
         on_change=update_contrast,
     )
+    if contrast_value in contrast_options:
+        contrast_kwargs["default"] = contrast_value
+    st.segmented_control(**contrast_kwargs)
 
-    if st.session_state["responses"][current_index].get("contrast") is not None:
-        st.write(f"Selected value: {st.session_state['responses'][current_index]['contrast']}")
+    if response.get("contrast") is not None:
+        st.write(f"Selected value: {response['contrast']}")
     else:
         st.write("No value selected yet.")
 
     st.markdown("**Content alignment**")
-    st.segmented_control(
-        "To what extent do the two texts express the same meaning or content?",
-        content_options,
-        default=content_value,
+    content_kwargs = dict(
+        label="To what extent do the two texts express the same meaning or content?",
+        options=content_options,
         key=f"content_segmented_{current_index}",
         on_change=update_content_alignment,
     )
+    if content_value in content_options:
+        content_kwargs["default"] = content_value
+    st.segmented_control(**content_kwargs)
 
-    if st.session_state["responses"][current_index].get("content_alignment") is not None:
-        st.write(f"Selected value: {st.session_state['responses'][current_index]['content_alignment']}")
+    if response.get("content_alignment") is not None:
+        st.write(f"Selected value: {response['content_alignment']}")
     else:
         st.write("No value selected yet.")
 
     st.markdown("**Grammar / fluency alignment**")
-    st.segmented_control(
-        "To what extent do the two texts have the same level of fluency / grammatical acceptability?",
-        grammar_options,
-        default=grammar_value,
+    grammar_kwargs = dict(
+        label="To what extent do the two texts have the same level of fluency / grammatical acceptability?",
+        options=grammar_options,
         key=f"grammar_segmented_{current_index}",
         on_change=update_grammar_alignment,
     )
+    if grammar_value in grammar_options:
+        grammar_kwargs["default"] = grammar_value
+    st.segmented_control(**grammar_kwargs)
 
-    if st.session_state["responses"][current_index].get("grammar_alignment") is not None:
-        st.write(f"Selected value: {st.session_state['responses'][current_index]['grammar_alignment']}")
+    if response.get("grammar_alignment") is not None:
+        st.write(f"Selected value: {response['grammar_alignment']}")
     else:
         st.write("No value selected yet.")
 
@@ -493,7 +504,6 @@ def page6():
     progress = completed_regular_pairs / total_regular_pairs if total_regular_pairs else 0
     st.progress(progress)
     st.write(f"Completed {completed_regular_pairs} out of {total_regular_pairs} pairs.")
-
 def page7():
     st.title("Your Feedback Matters")
 
