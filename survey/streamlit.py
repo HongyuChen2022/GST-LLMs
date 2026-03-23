@@ -293,7 +293,7 @@ def page6():
         st.error("Invalid index.")
         return
 
-    pair_id = row["pair_id"]
+
     text_a = row["feminine_style"]
     text_b = row["masculine_style"]
     is_attention_check = bool(row.get("is_attention_check", False))
@@ -320,8 +320,42 @@ def page6():
 
     response = st.session_state["responses"][current_index]
 
+    def update_contrast():
+        st.session_state["responses"][current_index]["contrast"] = st.session_state[f"contrast_segmented_{current_index}"]
+
+    def update_content_alignment():
+        st.session_state["responses"][current_index]["content_alignment"] = st.session_state[f"content_segmented_{current_index}"]
+
+    def update_grammar_alignment():
+        st.session_state["responses"][current_index]["grammar_alignment"] = st.session_state[f"grammar_segmented_{current_index}"]
+
+    contrast_options = [
+        "1: Not contrasted at all",
+        "2: Slightly contrasted",
+        "3: Moderately contrasted",
+        "4: Strongly contrasted",
+        "5: Very strongly contrasted",
+    ]
+
+    content_options = [
+        "1: Completely different meaning/content",
+        "2: Mostly different meaning/content",
+        "3: Partly similar meaning/content",
+        "4: Mostly same meaning/content",
+        "5: Same meaning/content",
+    ]
+
+    grammar_options = [
+        "1: Very different fluency/grammar level",
+        "2: Somewhat different fluency/grammar level",
+        "3: Moderately similar fluency/grammar level",
+        "4: Mostly same fluency/grammar level",
+        "5: Same fluency/grammar level",
+    ]
+
     feminine_options = ["Text A", "Text B", "About the same"]
     masculine_options = ["Text A", "Text B", "About the same"]
+
     confidence_options = [
         "1: Not Confident",
         "2: Somewhat Confident",
@@ -329,39 +363,51 @@ def page6():
         "4: Very Confident",
     ]
 
-    # --- Sliders ---
-    response["contrast"] = st.slider(
+    contrast_value = response.get("contrast", None)
+    content_value = response.get("content_alignment", None)
+    grammar_value = response.get("grammar_alignment", None)
+
+    st.markdown("**Style contrast**")
+    st.segmented_control(
         "How strongly contrasted are these two texts in feminine vs masculine style?",
-        min_value=1,
-        max_value=5,
-        value=response.get("contrast", 3),
-        step=1,
-        help="1 = Not contrasted at all, 5 = Very strongly contrasted",
-        key=f"contrast_slider_{current_index}",
+        contrast_options,
+        default=contrast_value,
+        key=f"contrast_segmented_{current_index}",
+        on_change=update_contrast,
     )
-    st.caption("1 = Not contrasted at all · 5 = Very strongly contrasted")
 
-    response["content_alignment"] = st.slider(
+    if st.session_state["responses"][current_index].get("contrast") is not None:
+        st.write(f"Selected value: {st.session_state['responses'][current_index]['contrast']}")
+    else:
+        st.write("No value selected yet.")
+
+    st.markdown("**Content alignment**")
+    st.segmented_control(
         "To what extent do the two texts express the same meaning or content?",
-        min_value=1,
-        max_value=5,
-        value=response.get("content_alignment", 3),
-        step=1,
-        help="1 = Completely different meaning/content, 5 = Same meaning/content",
-        key=f"content_slider_{current_index}",
+        content_options,
+        default=content_value,
+        key=f"content_segmented_{current_index}",
+        on_change=update_content_alignment,
     )
-    st.caption("1 = Completely different meaning/content · 5 = Same meaning/content")
 
-    response["grammar_alignment"] = st.slider(
-        "To what extent do the two texts have a similar level of fluency / grammatical acceptability?",
-        min_value=1,
-        max_value=5,
-        value=response.get("grammar_alignment", 3),
-        step=1,
-        help="1 = Very different fluency/grammar level, 5 = Same fluency/grammar level",
-        key=f"grammar_slider_{current_index}",
+    if st.session_state["responses"][current_index].get("content_alignment") is not None:
+        st.write(f"Selected value: {st.session_state['responses'][current_index]['content_alignment']}")
+    else:
+        st.write("No value selected yet.")
+
+    st.markdown("**Grammar / fluency alignment**")
+    st.segmented_control(
+        "To what extent do the two texts have the same level of fluency / grammatical acceptability?",
+        grammar_options,
+        default=grammar_value,
+        key=f"grammar_segmented_{current_index}",
+        on_change=update_grammar_alignment,
     )
-    st.caption("1 = Very different fluency/grammar level · 5 = Same fluency/grammar level")
+
+    if st.session_state["responses"][current_index].get("grammar_alignment") is not None:
+        st.write(f"Selected value: {st.session_state['responses'][current_index]['grammar_alignment']}")
+    else:
+        st.write("No value selected yet.")
 
     st.markdown("---")
 
@@ -416,7 +462,10 @@ def page6():
 
     with col_next:
         required_complete = (
-            response.get("more_feminine") is not None
+            response.get("contrast") is not None
+            and response.get("content_alignment") is not None
+            and response.get("grammar_alignment") is not None
+            and response.get("more_feminine") is not None
             and response.get("more_masculine") is not None
             and response.get("confidence") is not None
         )
@@ -433,6 +482,9 @@ def page6():
         1
         for i, r in enumerate(st.session_state["responses"])
         if not bool(data.iloc[i].get("is_attention_check", False))
+        and r.get("contrast") is not None
+        and r.get("content_alignment") is not None
+        and r.get("grammar_alignment") is not None
         and r.get("more_feminine") is not None
         and r.get("more_masculine") is not None
         and r.get("confidence") is not None
@@ -441,7 +493,6 @@ def page6():
     progress = completed_regular_pairs / total_regular_pairs if total_regular_pairs else 0
     st.progress(progress)
     st.write(f"Completed {completed_regular_pairs} out of {total_regular_pairs} pairs.")
-
 
 def page7():
     st.title("Your Feedback Matters")
