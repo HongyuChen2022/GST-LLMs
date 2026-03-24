@@ -100,13 +100,13 @@ def page1():
 
     st.header("Consent Form")
     st.markdown(
-        '<p class="custom-text">You are invited to participate in a pilot study designed to explore perceptions of linguistic style in written text. Before you decide to participate, it is important that you understand why this study is being conducted and what your participation involves. Please read the following information carefully.</p>',
+        '<p class="custom-text">You are invited to participate in a pilot study designed to explore perceptions of contrasted linguistic style in written text. Before you decide to participate, it is important that you understand why this study is being conducted and what your participation involves. Please read the following information carefully.</p>',
         unsafe_allow_html=True,
     )
 
     st.markdown('<p class="header-large">Description of the Research Study</p>', unsafe_allow_html=True)
     st.markdown(
-        '<p class="custom-text">In this study, we aim to investigate how readers perceive the style of written texts as masculine, feminine, or gender-neutral. As an annotator, your task will involve evaluating pairs of short texts based on their linguistic style. For each pair, you will judge how strongly the two texts differ in masculine versus feminine style, and indicate which text sounds more feminine and which text sounds more masculine. This evaluation should focus on stylistic elements such as tone, word choice, and sentence structure rather than the topic or subject matter of the texts.</p>',
+        '<p class="custom-text">In this study, we aim to investigate what makes two texts sound different in gendered style, especially along a feminine–masculine dimension. By collecting human judgments about stylistic contrast, we hope to identify what factors influence one text of sounding more feminine or more masculine than another. For each pair of short texts, you will rate how strongly the two texts differ in feminine versus masculine style, choose which text sounds more feminine and which sounds more masculine, and judge how similar the two texts are in meaning/content and in fluency or grammar. Please focus on how the texts are written — such as their tone, word choice, and sentence structure — rather than what the texts are about. This research can help support future work on style transfer and AI-based writing assistance.</p>',
         unsafe_allow_html=True,
     )
 
@@ -188,13 +188,13 @@ def page3():
                 <li>overall tone</li>
                 <li>word choice</li>
                 <li>emotional vs direct style</li>
-                <li>descriptive vs concise phrasing</li>
+                
             </ul>
         </div>
         """,
         unsafe_allow_html=True,
     )
-
+#<li>descriptive vs concise phrasing</li>
     if st.button("Next", key="page3_next"):
         st.session_state["current_page"] = "Page 4"
         st.rerun()
@@ -343,19 +343,19 @@ def page6():
     ]
 
     content_options = [
-        "1: Completely different meaning/content",
-        "2: Mostly different meaning/content",
-        "3: Partly similar meaning/content",
-        "4: Mostly same meaning/content",
-        "5: Same meaning/content",
+        "1: Completely different",
+        "2: Mostly different",
+        "3: Partly similar",
+        "4: Mostly same",
+        "5: Same meaning",
     ]
 
     grammar_options = [
-        "1: Very different fluency/grammar level",
-        "2: Somewhat different fluency/grammar level",
-        "3: Moderately similar fluency/grammar level",
-        "4: Mostly same fluency/grammar level",
-        "5: Same fluency/grammar level",
+        "1: Very different",
+        "2: Somewhat different",
+        "3: Moderately similar",
+        "4: Mostly same",
+        "5: Same",
     ]
 
     feminine_options = ["Text A", "Text B", "About the same"]
