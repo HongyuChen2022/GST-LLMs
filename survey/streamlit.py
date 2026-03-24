@@ -542,8 +542,6 @@ def page8():
             responses_df["feminine_style"] = data["feminine_style"]
             responses_df["masculine_style"] = data["masculine_style"]
             responses_df["is_attention_check"] = data["is_attention_check"]
-            responses_df["label"] = data["label"]
-            responses_df["data"] = data["data"]
             responses_df["p_id"] = st.session_state.get("p_id", "")
             responses_df["feedback"] = st.session_state.get("feedback", "")
             responses_df["consent"] = st.session_state.get("consent", "")
@@ -557,6 +555,16 @@ def page8():
                 responses_df["confidence_score"] = responses_df["confidence"].astype(str).str.split(":").str[0]
             else:
                 responses_df["confidence_score"] = ""
+            
+            if "content_alignment" in responses_df.columns:
+                responses_df["content_score"] = responses_df["content_alignment"].astype(str).str.split(":").str[0]
+            else:
+                responses_df["content_score"] = ""
+
+            if "grammar_alignment" in responses_df.columns:
+                responses_df["grammar_score"] = responses_df["grammar_alignment"].astype(str).str.split(":").str[0]
+            else:
+                responses_df["grammar_score"] = ""
 
             timestamp = int(time.time())
             submission_time = datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d_%H-%M-%S")
@@ -566,7 +574,7 @@ def page8():
                 responses_df.to_csv(filename, index=False)
                 st.success(
                     "Thank you for your submission!\n\n"
-                    "Submission code: **C1DSW210**"
+                   # "Submission code: **C1DSW210**"
                 )
                 st.session_state["submitted"] = True
                 st.session_state["submitted_users"].add(user_id)
