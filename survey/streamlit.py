@@ -9,7 +9,7 @@ import numpy as np
 
 st.set_page_config(
     page_title="Pilot Study on Masculine/Feminine Style Perception",
-    layout="wide",
+    layout="centered",
 )
 
 st.markdown(
