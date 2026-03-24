@@ -41,7 +41,7 @@ st.markdown(
         line-height: 1.7;
         white-space: pre-wrap;
     .block-container {
-        max-width: 1400px;
+        max-width: 1700px;
     }
     </style>
     """,
