@@ -93,10 +93,6 @@ if "submitted_users" not in st.session_state:
 def page1():
     st.title("Pilot Study on Masculine/Feminine Perception")
 
-    st.markdown(
-        '<p class="custom-text">We appreciate your feedback. Please fill out the survey below.</p>',
-        unsafe_allow_html=True,
-    )
 
     st.header("Consent Form")
     st.markdown(
