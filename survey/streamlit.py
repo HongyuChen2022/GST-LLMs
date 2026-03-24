@@ -183,8 +183,7 @@ def page3():
             <ul>
                 <li>overall tone</li>
                 <li>word choice</li>
-                <li>emotional vs direct style</li>
-                
+                <li>emotional vs direct style</li>     
             </ul>
         </div>
         """,
