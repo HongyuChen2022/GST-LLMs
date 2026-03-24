@@ -40,6 +40,8 @@ st.markdown(
         font-size: 17px !important;
         line-height: 1.7;
         white-space: pre-wrap;
+    .block-container {
+        max-width: 1200px;
     }
     </style>
     """,
