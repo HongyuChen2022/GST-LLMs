@@ -280,9 +280,9 @@ def page4():
     st.markdown(
         """
         <p class="custom-text">
-        Below is an example of the type of comparison you will make in the survey.
-        For each pair, you will judge style contrast, meaning similarity, grammar / fluency similarity,
-        which text sounds more feminine, which sounds more masculine, and how confident you feel in your judgments.
+        Below is an example of the exact type of comparison you will make in the survey.
+        The example uses the same structure as the actual survey questions.
+        The selected answers and explanations are shown only to illustrate how the task works.
         </p>
         """,
         unsafe_allow_html=True,
@@ -291,7 +291,7 @@ def page4():
     c1, c2 = st.columns(2)
 
     with c1:
-        st.markdown("**Text A**")
+        st.markdown("#### Text A")
         st.markdown(
             """
             <div class="pair-box">
@@ -302,7 +302,7 @@ def page4():
         )
 
     with c2:
-        st.markdown("**Text B**")
+        st.markdown("#### Text B")
         st.markdown(
             """
             <div class="pair-box">
@@ -314,42 +314,98 @@ def page4():
 
     st.markdown("---")
 
-    st.markdown(
-        """
-        <p class="custom-bold">Example answers and reasoning</p>
-        """,
-        unsafe_allow_html=True,
-    )
+    contrast_options = [
+        "1: Not contrasted at all",
+        "2: Slightly contrasted",
+        "3: Moderately contrasted",
+        "4: Strongly contrasted",
+        "5: Very strongly contrasted",
+    ]
 
+    content_options = [
+        "1: Completely different",
+        "2: Mostly different",
+        "3: Partly similar",
+        "4: Mostly same",
+        "5: Same meaning",
+    ]
+
+    grammar_options = [
+        "1: Very different",
+        "2: Somewhat different",
+        "3: Moderately similar",
+        "4: Mostly same",
+        "5: Same",
+    ]
+
+    feminine_options = ["Text A", "Text B", "About the same"]
+    masculine_options = ["Text A", "Text B", "About the same"]
+
+    confidence_options = [
+        "1: Not Confident",
+        "2: Somewhat Confident",
+        "3: Moderately Confident",
+        "4: Very Confident",
+    ]
+
+    # Fixed example answers
+    example_contrast = "5: Very strongly contrasted"
+    example_content = "4: Mostly same"
+    example_grammar = "5: Same"
+    example_more_feminine = "Text B"
+    example_more_masculine = "Text A"
+    example_confidence = "4: Very Confident"
+
+    st.markdown("**Style contrast**")
+    st.segmented_control(
+        "How strongly contrasted are these two texts in feminine vs masculine style?",
+        options=contrast_options,
+        default=example_contrast,
+        key="example_contrast_segmented",
+        disabled=True,
+    )
+    st.write(f"Selected value: {example_contrast}")
     st.markdown(
         """
-        <p class="custom-bold">1. Style contrast</p>
-        <p class="custom-text"><strong>Selected answer:</strong> 5: Very strongly contrasted</p>
         <p class="custom-text">
         <strong>Reasoning:</strong> The two texts feel far apart in style. Text A is concise, direct, and task-focused,
         while Text B is more expressive, relational, and descriptive. Because the stylistic distance between them is large,
-        this pair would be rated as highly contrasted.
+        this pair would be rated as very strongly contrasted.
         </p>
         """,
         unsafe_allow_html=True,
     )
 
+    st.markdown("**Meaning similarity**")
+    st.segmented_control(
+        "To what extent do the two texts express the same meaning or content?",
+        options=content_options,
+        default=example_content,
+        key="example_content_segmented",
+        disabled=True,
+    )
+    st.write(f"Selected value: {example_content}")
     st.markdown(
         """
-        <p class="custom-bold">2. Meaning similarity</p>
-        <p class="custom-text"><strong>Selected answer:</strong> 4: Mostly similar in meaning/content</p>
         <p class="custom-text">
         <strong>Reasoning:</strong> Both texts describe a successful completion of a shared effort or task.
-        Although the wording and style are quite different, the core meaning is still fairly similar.
+        Even though the wording and style differ, the core meaning is still fairly similar.
         </p>
         """,
         unsafe_allow_html=True,
     )
 
+    st.markdown("**Grammar / fluency alignment**")
+    st.segmented_control(
+        "To what extent do the two texts have the same level of fluency / grammatical acceptability?",
+        options=grammar_options,
+        default=example_grammar,
+        key="example_grammar_segmented",
+        disabled=True,
+    )
+    st.write(f"Selected value: {example_grammar}")
     st.markdown(
         """
-        <p class="custom-bold">3. Grammar / fluency similarity</p>
-        <p class="custom-text"><strong>Selected answer:</strong> 5: Same fluency / grammar level</p>
         <p class="custom-text">
         <strong>Reasoning:</strong> Both texts are fluent, natural, and grammatically acceptable.
         They differ in style, but not in overall readability or grammatical well-formedness.
@@ -358,22 +414,38 @@ def page4():
         unsafe_allow_html=True,
     )
 
+    st.markdown("---")
+
+    st.markdown("**Which text sounds more feminine?**")
+    st.radio(
+        "Which text sounds more feminine?",
+        options=feminine_options,
+        index=feminine_options.index(example_more_feminine),
+        key="example_more_feminine_radio",
+        disabled=True,
+        label_visibility="collapsed",
+    )
     st.markdown(
         """
-        <p class="custom-bold">4. Which text sounds more feminine?</p>
-        <p class="custom-text"><strong>Selected answer:</strong> Text B</p>
         <p class="custom-text">
         <strong>Reasoning:</strong> Text B uses more expressive, relational, and emotionally colored language,
-        such as “thoughtfully together” and “really satisfying,” which makes it sound more feminine.
+        which makes it sound more feminine.
         </p>
         """,
         unsafe_allow_html=True,
     )
 
+    st.markdown("**Which text sounds more masculine?**")
+    st.radio(
+        "Which text sounds more masculine?",
+        options=masculine_options,
+        index=masculine_options.index(example_more_masculine),
+        key="example_more_masculine_radio",
+        disabled=True,
+        label_visibility="collapsed",
+    )
     st.markdown(
         """
-        <p class="custom-bold">5. Which text sounds more masculine?</p>
-        <p class="custom-text"><strong>Selected answer:</strong> Text A</p>
         <p class="custom-text">
         <strong>Reasoning:</strong> Text A is more direct, efficient, and outcome-focused.
         Its concise and task-oriented phrasing makes it sound more masculine.
@@ -382,10 +454,17 @@ def page4():
         unsafe_allow_html=True,
     )
 
+    st.markdown("**Confidence Level**")
+    st.selectbox(
+        "Confidence Level",
+        options=confidence_options,
+        index=confidence_options.index(example_confidence),
+        key="example_confidence_select",
+        disabled=True,
+        label_visibility="collapsed",
+    )
     st.markdown(
         """
-        <p class="custom-bold">6. Confidence</p>
-        <p class="custom-text"><strong>Selected answer:</strong> 4: Very Confident</p>
         <p class="custom-text">
         <strong>Reasoning:</strong> The contrast between the two texts is strong and relatively easy to identify,
         so this judgment can be made with high confidence.
@@ -397,7 +476,7 @@ def page4():
     st.markdown(
         """
         <p class="custom-text">
-        This is only an example to illustrate how the task works. In the actual survey, there are no strictly correct answers.
+        This is only an example to show how the survey works. In the actual study, there are no strictly correct answers.
         Please use your own judgment when comparing each pair.
         </p>
         """,
@@ -411,7 +490,6 @@ def page4():
     if st.button("Back", key="page4_back"):
         st.session_state["current_page"] = "Page 3"
         st.rerun()
-
 
 def page5():
     st.header("Survey Instructions")
