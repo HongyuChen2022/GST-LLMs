@@ -169,29 +169,102 @@ def page2():
 
 
 def page3():
-    st.header("Guidelines for Annotating Masculine/Feminine Style from Text Pairs")
+    st.header("Guidelines for Comparing Text Pairs along Feminine-Masculine Style")
 
     st.markdown(
         """
-        <p class="custom-text">For each pair of texts, please judge how strongly the two texts differ in style and indicate which text sounds more feminine and which text sounds more masculine.</p>
+        <p class="custom-text">
+        In this study, you will compare pairs of short texts. Your task is to judge how strongly the two texts differ along a feminine–masculine stylistic dimension, while also considering how similar they are in meaning and in fluency or grammatical acceptability.
+        </p>
         """,
         unsafe_allow_html=True,
     )
 
     st.markdown(
         """
-        <p class="custom-bold">Things to focus on:</p>
+        <p class="custom-bold">For each pair, you will answer the following questions:</p>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
         <div class="custom-bullet">
             <ul>
-                <li>overall tone</li>
-                <li>word choice</li>
-                <li>emotional vs direct style</li>     
+                <li><strong>Style contrast:</strong> How strongly are the two texts contrasted along the feminine–masculine style dimension?</li>
+                <li><strong>Meaning similarity:</strong> How similar are the meanings or content of the two texts?</li>
+                <li><strong>Grammar / fluency similarity:</strong> How similar are the two texts in fluency or grammatical acceptability?</li>
+                <li><strong>More feminine:</strong> Which text sounds more feminine?</li>
+                <li><strong>More masculine:</strong> Which text sounds more masculine?</li>
+                <li><strong>Confidence:</strong> How confident are you in your judgments?</li>
             </ul>
         </div>
         """,
         unsafe_allow_html=True,
     )
-#<li>descriptive vs concise phrasing</li>
+
+    st.markdown(
+        """
+        <p class="custom-bold">1. Style contrast</p>
+        <p class="custom-text">
+        A pair has low contrast if the two texts sound stylistically similar. A pair has high contrast if the two texts feel far apart in tone, word choice, emotional expression, directness, or sentence structure.
+        </p>
+        <p class="custom-text">
+        For example, a more masculine-leaning style may sound more direct, concise, and task-focused, while a more feminine-leaning style may sound more expressive, relational, and descriptive. The more strongly two texts differ in these stylistic features, the higher the contrast.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <p class="custom-bold">2. Meaning similarity</p>
+        <p class="custom-text">
+        This question asks how similar the two texts are in meaning or content. Even if the style is very different, the texts may still express a similar core idea. If the meaning is very similar, give a higher rating. If the texts express different ideas, give a lower rating.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <p class="custom-bold">3. Grammar / fluency similarity</p>
+        <p class="custom-text">
+        This question asks whether the two texts are at a similar level of fluency or grammatical acceptability. If both texts feel similarly natural and well-formed, give a higher rating. If one text feels much less fluent or less grammatically acceptable than the other, give a lower rating.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <p class="custom-bold">4. More feminine / more masculine</p>
+        <p class="custom-text">
+        As complementary questions, you will also indicate which text sounds more feminine and which text sounds more masculine. These questions help identify the direction of the stylistic difference.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <p class="custom-bold">5. Confidence</p>
+        <p class="custom-text">
+        Finally, you will indicate how confident you are in your judgments. Use this rating to reflect how certain or uncertain you feel about your answers.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <p class="custom-text">
+        Please base your judgments on how the texts are written — such as tone, wording, and sentence structure — rather than only on what the texts are about.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
+
     if st.button("Next", key="page3_next"):
         st.session_state["current_page"] = "Page 4"
         st.rerun()
