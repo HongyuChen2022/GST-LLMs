@@ -375,7 +375,7 @@ def page4():
         """,
         unsafe_allow_html=True,
     )
-
+    st.markdown("---")
     st.markdown("**Meaning similarity**")
     st.segmented_control(
         "To what extent do the two texts express the same meaning or content?",
@@ -394,6 +394,8 @@ def page4():
         """,
         unsafe_allow_html=True,
     )
+
+    st.markdown("---")
 
     st.markdown("**Grammar / fluency alignment**")
     st.segmented_control(
@@ -434,7 +436,7 @@ def page4():
         """,
         unsafe_allow_html=True,
     )
-
+    st.markdown("---")
     st.markdown("**Which text sounds more masculine?**")
     st.radio(
         "Which text sounds more masculine?",
