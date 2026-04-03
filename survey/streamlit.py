@@ -275,33 +275,131 @@ def page3():
 
 
 def page4():
-    st.markdown('<p class="header-large">Examples</p>', unsafe_allow_html=True)
+    st.markdown('<p class="header-large">Example of the Survey Task</p>', unsafe_allow_html=True)
+
+    st.markdown(
+        """
+        <p class="custom-text">
+        Below is an example of the type of comparison you will make in the survey.
+        For each pair, you will judge style contrast, meaning similarity, grammar / fluency similarity,
+        which text sounds more feminine, which sounds more masculine, and how confident you feel in your judgments.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
 
     c1, c2 = st.columns(2)
+
     with c1:
         st.markdown("**Text A**")
         st.markdown(
             """
             <div class="pair-box">
-            I couldn’t stop thinking about how kind and thoughtful her gesture was. It felt like a warm hug on a cold day.
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-    with c2:
-        st.markdown("**Text B**")
-        st.markdown(
-            """
-            <div class="pair-box">
-            The machine operates at peak efficiency under optimal conditions. Ensure all components are calibrated before deployment.
+            The project was completed on time, met all specifications, and achieved the required outcome efficiently.
             </div>
             """,
             unsafe_allow_html=True,
         )
 
+    with c2:
+        st.markdown("**Text B**")
+        st.markdown(
+            """
+            <div class="pair-box">
+            Everyone worked so thoughtfully together, and it was really satisfying to see everything come together so smoothly in the end.
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    st.markdown("---")
+
     st.markdown(
         """
-        <p class="custom-text"><strong>Example interpretation:</strong> The pair is strongly contrasted. Text A sounds more feminine. Text B sounds more masculine.</p>
+        <p class="custom-bold">Example answers and reasoning</p>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <p class="custom-bold">1. Style contrast</p>
+        <p class="custom-text"><strong>Selected answer:</strong> 5: Very strongly contrasted</p>
+        <p class="custom-text">
+        <strong>Reasoning:</strong> The two texts feel far apart in style. Text A is concise, direct, and task-focused,
+        while Text B is more expressive, relational, and descriptive. Because the stylistic distance between them is large,
+        this pair would be rated as highly contrasted.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <p class="custom-bold">2. Meaning similarity</p>
+        <p class="custom-text"><strong>Selected answer:</strong> 4: Mostly similar in meaning/content</p>
+        <p class="custom-text">
+        <strong>Reasoning:</strong> Both texts describe a successful completion of a shared effort or task.
+        Although the wording and style are quite different, the core meaning is still fairly similar.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <p class="custom-bold">3. Grammar / fluency similarity</p>
+        <p class="custom-text"><strong>Selected answer:</strong> 5: Same fluency / grammar level</p>
+        <p class="custom-text">
+        <strong>Reasoning:</strong> Both texts are fluent, natural, and grammatically acceptable.
+        They differ in style, but not in overall readability or grammatical well-formedness.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <p class="custom-bold">4. Which text sounds more feminine?</p>
+        <p class="custom-text"><strong>Selected answer:</strong> Text B</p>
+        <p class="custom-text">
+        <strong>Reasoning:</strong> Text B uses more expressive, relational, and emotionally colored language,
+        such as “thoughtfully together” and “really satisfying,” which makes it sound more feminine.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <p class="custom-bold">5. Which text sounds more masculine?</p>
+        <p class="custom-text"><strong>Selected answer:</strong> Text A</p>
+        <p class="custom-text">
+        <strong>Reasoning:</strong> Text A is more direct, efficient, and outcome-focused.
+        Its concise and task-oriented phrasing makes it sound more masculine.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <p class="custom-bold">6. Confidence</p>
+        <p class="custom-text"><strong>Selected answer:</strong> 4: Very Confident</p>
+        <p class="custom-text">
+        <strong>Reasoning:</strong> The contrast between the two texts is strong and relatively easy to identify,
+        so this judgment can be made with high confidence.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <p class="custom-text">
+        This is only an example to illustrate how the task works. In the actual survey, there are no strictly correct answers.
+        Please use your own judgment when comparing each pair.
+        </p>
         """,
         unsafe_allow_html=True,
     )
