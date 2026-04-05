@@ -481,7 +481,7 @@ def page4():
         """
         <p class="custom-text">
         This is only an example to show how the survey works. In the actual study, there are no strictly correct answers.
-        Please use your own judgment when comparing each pair.
+        Please use your own intuition when comparing each pair.
         </p>
         """,
         unsafe_allow_html=True,
