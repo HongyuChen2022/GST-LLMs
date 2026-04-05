@@ -209,9 +209,11 @@ def page3():
         <p class="custom-text">
         A pair has low contrast if the two texts sound stylistically similar. A pair has high contrast if the two texts feel far apart in tone, word choice, emotional expression, directness, or sentence structure.
         </p>
+       <!-- 
         <p class="custom-text">
         For example, a more masculine-leaning style may sound more direct, concise, and task-focused, while a more feminine-leaning style may sound more expressive, relational, and descriptive. The more strongly two texts differ in these stylistic features, the higher the contrast.
-        </p>
+        </p> 
+        -->
         """,
         unsafe_allow_html=True,
     )
