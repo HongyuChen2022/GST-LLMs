@@ -8,7 +8,7 @@ import numpy as np
 
 
 st.set_page_config(
-    page_title="Pilot Study on Masculine/Feminine Style Perception",
+    page_title="Pilot Study on Perception of Gendered Style Contrast",
     layout="centered",
 )
 
@@ -52,7 +52,7 @@ st.markdown(
 @st.cache_data
 def load_data():
     df = pd.read_csv("survey/ds_style_instructions.csv")
-    idx = np.random.default_rng(42).choice(500, size=10, replace=False)
+    idx = np.random.default_rng(40).choice(500, size=10, replace=False)
     df = df.iloc[idx]
     required_cols = {"feminine_style", "masculine_style"}
     missing = required_cols - set(df.columns)
