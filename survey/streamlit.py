@@ -8,7 +8,7 @@ import numpy as np
 
 
 st.set_page_config(
-    page_title="Pilot Study on Perception of Gendered Style Contrast",
+    page_title="Pilot Study on Gendered Style Contrast",
     layout="centered",
 )
 
