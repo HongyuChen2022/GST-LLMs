@@ -93,7 +93,7 @@ if "submitted_users" not in st.session_state:
 
 
 def page1():
-    st.title("Pilot Study on Masculine/Feminine Perception")
+    st.title("Pilot Study on Perception of Gendered Style Contrast")
 
 
     st.header("Consent Form")
