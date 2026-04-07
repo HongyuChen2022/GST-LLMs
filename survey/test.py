@@ -453,7 +453,7 @@ def page4():
         """,
         unsafe_allow_html=True,
     )
-
+    st.markdown("---")
 
     st.markdown("If one text sounds more feminine, how would you describe the other text in comparison?")
     st.radio(
