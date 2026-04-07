@@ -41,7 +41,7 @@ st.markdown(
         line-height: 1.7;
         white-space: pre-wrap;
     .block-container {
-        max-width: 1600px;
+        max-width: 1400px;
     }
     </style>
     """,
@@ -277,7 +277,7 @@ def page3():
     st.markdown(
         """
         <p class="custom-text">
-        Please base your judgments on how the texts are written — such as tone, wording, and sentence structure — rather than only on what the texts are about.
+        Please base your judgments on how the texts are written: such as tone, wording, and sentence structure, rather than only on what the texts are about.
         </p>
         """,
         unsafe_allow_html=True,
