@@ -41,7 +41,7 @@ st.markdown(
         line-height: 1.7;
         white-space: pre-wrap;
     .block-container {
-        max-width: 1700px;
+        max-width: 1600px;
     }
     </style>
     """,
@@ -49,21 +49,23 @@ st.markdown(
 )
 
 
+
 @st.cache_data
 def load_data():
     df = pd.read_csv("survey/ds_style_instructions.csv")
-    idx = np.random.default_rng(40).choice(500, size=10, replace=False)
+
+    sample_size = min(10, len(df))
+    idx = np.random.default_rng(40).choice(len(df), size=sample_size, replace=False)
     df = df.iloc[idx]
+
     required_cols = {"feminine_style", "masculine_style"}
     missing = required_cols - set(df.columns)
     if missing:
-        raise ValueError(f"Missing required columns in data_pairs.csv: {missing}")
+        raise ValueError(f"Missing required columns in ds_style_instructions.csv: {missing}")
 
-    # Create an internal pair number
     df = df.reset_index(drop=True).copy()
     df["pair_id"] = df.index + 1
 
-    # Optional columns
     if "is_attention_check" not in df.columns:
         df["is_attention_check"] = False
     if "label" not in df.columns:
@@ -91,10 +93,29 @@ if "submitted" not in st.session_state:
 if "submitted_users" not in st.session_state:
     st.session_state["submitted_users"] = set()
 
+if "pair_display_order" not in st.session_state:
+    rng = np.random.default_rng()
+    st.session_state["pair_display_order"] = []
+
+    for _ in range(len(data)):
+        if rng.random() < 0.5:
+            st.session_state["pair_display_order"].append(
+                {
+                    "text_a_source": "feminine_style",
+                    "text_b_source": "masculine_style",
+                }
+            )
+        else:
+            st.session_state["pair_display_order"].append(
+                {
+                    "text_a_source": "masculine_style",
+                    "text_b_source": "feminine_style",
+                }
+            )
+
 
 def page1():
     st.title("Pilot Study on Perception of Gendered Style Contrast")
-
 
     st.header("Consent Form")
     st.markdown(
@@ -104,7 +125,7 @@ def page1():
 
     st.markdown('<p class="header-large">Description of the Research Study</p>', unsafe_allow_html=True)
     st.markdown(
-        '<p class="custom-text">In this study, we aim to investigate whether two texts sound different in gendered style, especially along a feminine–masculine dimension. By collecting human judgments about stylistic contrast, we hope to identify what factors influence one text to sound more feminine or more masculine than another. For each pair of short texts, you will rate how strongly the two texts differ in feminine versus masculine style, choose which text sounds more feminine and which sounds more masculine, and judge how similar the two texts are in meaning/content and in fluency or grammar. Please focus on how the texts are written — such as their tone, word choice, and sentence structure — rather than what the texts are about. This research can help support future work on style transfer and AI-based writing assistance.</p>',
+        '<p class="custom-text">In this study, we aim to investigate whether two texts sound different in gendered style, especially along a feminine–masculine dimension. By collecting human judgments about stylistic contrast, we hope to identify what factors influence one text to sound more feminine/masculine than another. For each pair of short texts, you will rate how strongly the two texts differ in feminine versus masculine style, judge how similar the two texts are in meaning/content and in fluency or grammar, and indicate the relative gendered style direction of the pair. Please focus on how the texts are written: such as their tone, word choice, and sentence structure, rather than what the texts are about. This research can help support future work on style transfer and AI-based writing assistance.</p>',
         unsafe_allow_html=True,
     )
 
@@ -169,12 +190,12 @@ def page2():
 
 
 def page3():
-    st.header("Guidelines for Comparing Text Pairs along Feminine-Masculine Style")
+    st.header("Guidelines for Comparing Text Pairs along Feminine–Masculine Style")
 
     st.markdown(
         """
         <p class="custom-text">
-        In this study, you will compare pairs of short texts. Your task is to judge how strongly the two texts differ along a feminine–masculine stylistic dimension, while also considering how similar they are in meaning and in fluency or grammatical acceptability.
+        In this study, you will compare pairs of short texts. Your main task is to judge how strongly the two texts differ along a feminine–masculine stylistic dimension, while also considering how similar they are in meaning and in fluency or grammatical acceptability.
         </p>
         """,
         unsafe_allow_html=True,
@@ -194,8 +215,8 @@ def page3():
                 <li><strong>Style contrast:</strong> How strongly are the two texts contrasted along the feminine–masculine style dimension?</li>
                 <li><strong>Meaning similarity:</strong> How similar are the meanings or content of the two texts?</li>
                 <li><strong>Grammar / fluency similarity:</strong> How similar are the two texts in fluency or grammatical acceptability?</li>
-                <li><strong>More feminine:</strong> Which text sounds more feminine?</li>
-                <li><strong>More masculine:</strong> Which text sounds more masculine?</li>
+                <li><strong>Style Direction:</strong> Which text sounds more feminine relative to the other?</li>
+                <li><strong>Follow-up Question:</strong> If one text is more feminine, does the other sound more masculine, or mainly just less feminine?</li>
                 <li><strong>Confidence:</strong> How confident are you in your judgments?</li>
             </ul>
         </div>
@@ -209,11 +230,6 @@ def page3():
         <p class="custom-text">
         A pair has low contrast if the two texts sound stylistically similar. A pair has high contrast if the two texts feel far apart in tone, word choice, emotional expression, directness, or sentence structure.
         </p>
-       <!-- 
-        <p class="custom-text">
-        For example, a more masculine-leaning style may sound more direct, concise, and task-focused, while a more feminine-leaning style may sound more expressive, relational, and descriptive. The more strongly two texts differ in these stylistic features, the higher the contrast.
-        </p> 
-        -->
         """,
         unsafe_allow_html=True,
     )
@@ -240,9 +256,9 @@ def page3():
 
     st.markdown(
         """
-        <p class="custom-bold">4. More feminine / more masculine</p>
+        <p class="custom-bold">4. Style Direction</p>
         <p class="custom-text">
-        As complementary questions, you will also indicate which text sounds more feminine and which text sounds more masculine. These questions help identify the direction of the stylistic difference.
+        You will first indicate which text sounds more feminine relative to the other. If one text is chosen, you will then answer a follow-up question about how to understand the other text: does it sound more masculine, or mainly just less feminine? This helps distinguish whether the pair reflects a stronger feminine–masculine contrast or a smaller difference within a similar style.
         </p>
         """,
         unsafe_allow_html=True,
@@ -261,7 +277,7 @@ def page3():
     st.markdown(
         """
         <p class="custom-text">
-        Please base your judgments on how the texts are written — such as tone, wording, and sentence structure — rather than only on what the texts are about.
+        Please base your judgments on how the texts are written: such as tone, wording, and sentence structure, rather than only on what the texts are about.
         </p>
         """,
         unsafe_allow_html=True,
@@ -283,7 +299,6 @@ def page4():
         """
         <p class="custom-text">
         Below is an example of the exact type of comparison you will make in the survey.
-        The example uses the same structure as the actual survey questions.
         The selected answers and explanations are shown only to illustrate how the task works.
         </p>
         """,
@@ -341,8 +356,7 @@ def page4():
     ]
 
     feminine_options = ["Text A", "Text B", "About the same"]
-    masculine_options = ["Text A", "Text B", "About the same"]
-
+    followup_options = ["More masculine", "Less feminine"]
     confidence_options = [
         "1: Not Confident",
         "2: Somewhat Confident",
@@ -350,12 +364,11 @@ def page4():
         "4: Very Confident",
     ]
 
-    # Fixed example answers
     example_contrast = "5: Very strongly contrasted"
     example_content = "4: Mostly same"
     example_grammar = "5: Same"
     example_more_feminine = "Text B"
-    example_more_masculine = "Text A"
+    example_followup = "More masculine"
     example_confidence = "4: Very Confident"
 
     st.markdown("**Style contrast**")
@@ -377,7 +390,9 @@ def page4():
         """,
         unsafe_allow_html=True,
     )
+
     st.markdown("---")
+
     st.markdown("**Meaning similarity**")
     st.segmented_control(
         "To what extent do the two texts express the same meaning or content?",
@@ -419,10 +434,10 @@ def page4():
     )
 
     st.markdown("---")
+    st.markdown("**Compared with the other text, which one sounds more feminine?**")
 
-    st.markdown("**Which text sounds more feminine?**")
     st.radio(
-        "Which text sounds more feminine?",
+        "Compared with the other text, which one sounds more feminine?",
         options=feminine_options,
         index=feminine_options.index(example_more_feminine),
         key="example_more_feminine_radio",
@@ -433,30 +448,32 @@ def page4():
         """
         <p class="custom-text">
         <strong>Reasoning:</strong> Text B uses more expressive, relational, and emotionally colored language,
-        which makes it sound more feminine.
+        which makes it sound more feminine relative to Text A.
         </p>
         """,
         unsafe_allow_html=True,
     )
     st.markdown("---")
-    st.markdown("**Which text sounds more masculine?**")
+
+    st.markdown("**If one text sounds more feminine, how would you describe the other text in comparison?**")
     st.radio(
-        "Which text sounds more masculine?",
-        options=masculine_options,
-        index=masculine_options.index(example_more_masculine),
-        key="example_more_masculine_radio",
+        "If one text sounds more feminine, how would you describe the other text in comparison?",
+        options=followup_options,
+        index=followup_options.index(example_followup),
+        key="example_followup_radio",
         disabled=True,
         label_visibility="collapsed",
     )
     st.markdown(
         """
         <p class="custom-text">
-        <strong>Reasoning:</strong> Text A is more direct, efficient, and outcome-focused.
-        Its concise and task-oriented phrasing makes it sound more masculine.
+        <strong>Reasoning:</strong> In this example, Text A does not just sound less feminine than Text B; it also sounds more clearly masculine because it is more direct, efficient, and outcome-focused.
         </p>
         """,
         unsafe_allow_html=True,
     )
+
+    st.markdown("---")
 
     st.markdown("**Confidence Level**")
     st.selectbox(
@@ -495,6 +512,7 @@ def page4():
         st.session_state["current_page"] = "Page 3"
         st.rerun()
 
+
 def page5():
     st.header("Survey Instructions")
 
@@ -503,7 +521,8 @@ def page5():
         <p class="custom-text">
         There are {len(data[data["is_attention_check"] == False])} text pairs in this survey.
         For each pair, please judge how strongly the two texts differ in feminine versus masculine style,
-        and indicate which text sounds more feminine and which sounds more masculine.
+        how similar they are in meaning and in grammar/fluency, and which text sounds more feminine.
+        If one text is selected as more feminine, you will answer a short follow-up question about how the other text should be understood.
         </p>
         """,
         unsafe_allow_html=True,
@@ -516,7 +535,7 @@ def page5():
                 <li>There is no correct answer.</li>
                 <li>Please follow your intuition.</li>
                 <li>Base your judgment on style, not topic.</li>
-                <li>Comments are optional.</li>
+                <li>Comments are optional, but free feel to explain the reasoning for your judgements.</li>
             </ul>
         </div>
         """,
@@ -543,8 +562,14 @@ def page6():
         st.error("Invalid index.")
         return
 
-    text_a = row["feminine_style"]
-    text_b = row["masculine_style"]
+    display_order = st.session_state["pair_display_order"][current_index]
+
+    text_a_source = display_order["text_a_source"]
+    text_b_source = display_order["text_b_source"]
+
+    text_a = row[text_a_source]
+    text_b = row[text_b_source]
+
     is_attention_check = bool(row.get("is_attention_check", False))
 
     regular_pairs = data[data["is_attention_check"] == False]
@@ -568,6 +593,11 @@ def page6():
     st.markdown("---")
 
     response = st.session_state["responses"][current_index]
+
+    response["text_a_source"] = text_a_source
+    response["text_b_source"] = text_b_source
+    response["text_a_text"] = text_a
+    response["text_b_text"] = text_b
 
     def update_contrast():
         st.session_state["responses"][current_index]["contrast"] = st.session_state.get(
@@ -609,7 +639,7 @@ def page6():
     ]
 
     feminine_options = ["Text A", "Text B", "About the same"]
-    masculine_options = ["Text A", "Text B", "About the same"]
+    followup_options = ["More masculine", "Less feminine"]
 
     confidence_options = [
         "1: Not Confident",
@@ -637,7 +667,7 @@ def page6():
         st.write(f"Selected value: {response['contrast']}")
     else:
         st.write("No value selected yet.")
-
+    st.markdown("---")
     st.markdown("**Content alignment**")
     content_kwargs = dict(
         label="To what extent do the two texts express the same meaning or content?",
@@ -653,7 +683,7 @@ def page6():
         st.write(f"Selected value: {response['content_alignment']}")
     else:
         st.write("No value selected yet.")
-
+    st.markdown("---")
     st.markdown("**Grammar / fluency alignment**")
     grammar_kwargs = dict(
         label="To what extent do the two texts have the same level of fluency / grammatical acceptability?",
@@ -671,26 +701,46 @@ def page6():
         st.write("No value selected yet.")
 
     st.markdown("---")
-
+    st.markdown("**Style Direction**")
     current_more_feminine = response.get("more_feminine")
     feminine_index = feminine_options.index(current_more_feminine) if current_more_feminine in feminine_options else None
 
     response["more_feminine"] = st.radio(
-        "Which text sounds more feminine?",
+        "Compared with the other text, which one sounds more feminine?",
         options=feminine_options,
         index=feminine_index,
         key=f"more_feminine_{current_index}",
     )
 
-    current_more_masculine = response.get("more_masculine")
-    masculine_index = masculine_options.index(current_more_masculine) if current_more_masculine in masculine_options else None
+    if response.get("more_feminine") == "About the same":
+        response["other_text_target"] = ""
+        response["other_text_interpretation"] = ""
 
-    response["more_masculine"] = st.radio(
-        "Which text sounds more masculine?",
-        options=masculine_options,
-        index=masculine_index,
-        key=f"more_masculine_{current_index}",
-    )
+    if response.get("more_feminine") == "Text A":
+        response["other_text_target"] = "Text B"
+        current_followup = response.get("other_text_interpretation")
+        followup_index = followup_options.index(current_followup) if current_followup in followup_options else None
+
+        response["other_text_interpretation"] = st.radio(
+            "How would you describe Text B in comparison with Text A?",
+            options=followup_options,
+            index=followup_index,
+            key=f"other_text_interpretation_{current_index}",
+            help="Choose whether the other text feels more masculine, or mainly just less feminine.",
+        )
+
+    elif response.get("more_feminine") == "Text B":
+        response["other_text_target"] = "Text A"
+        current_followup = response.get("other_text_interpretation")
+        followup_index = followup_options.index(current_followup) if current_followup in followup_options else None
+
+        response["other_text_interpretation"] = st.radio(
+            "How would you describe Text A in comparison with Text B?",
+            options=followup_options,
+            index=followup_index,
+            key=f"other_text_interpretation_{current_index}",
+            help="Choose whether the other text feels more masculine, or mainly just less feminine.",
+        )
 
     current_confidence = response.get("confidence")
     confidence_index = confidence_options.index(current_confidence) if current_confidence in confidence_options else None
@@ -722,12 +772,16 @@ def page6():
             st.rerun()
 
     with col_next:
+        followup_complete = True
+        if response.get("more_feminine") in ["Text A", "Text B"]:
+            followup_complete = response.get("other_text_interpretation") is not None and response.get("other_text_interpretation") != ""
+
         required_complete = (
             response.get("contrast") is not None
             and response.get("content_alignment") is not None
             and response.get("grammar_alignment") is not None
             and response.get("more_feminine") is not None
-            and response.get("more_masculine") is not None
+            and followup_complete
             and response.get("confidence") is not None
         )
 
@@ -747,13 +801,18 @@ def page6():
         and r.get("content_alignment") is not None
         and r.get("grammar_alignment") is not None
         and r.get("more_feminine") is not None
-        and r.get("more_masculine") is not None
+        and (
+            r.get("more_feminine") == "About the same"
+            or (r.get("other_text_interpretation") is not None and r.get("other_text_interpretation") != "")
+        )
         and r.get("confidence") is not None
     )
 
     progress = completed_regular_pairs / total_regular_pairs if total_regular_pairs else 0
     st.progress(progress)
     st.write(f"Completed {completed_regular_pairs} out of {total_regular_pairs} pairs.")
+
+
 def page7():
     st.title("Your Feedback Matters")
 
@@ -778,7 +837,7 @@ def page8():
     st.markdown(
         """
         Please click **Submit** to save your responses and receive your completion code.
-        """,
+        """
     )
 
     if st.button("Submit", key="page8_submit", disabled=st.session_state.get("submitted", False)):
@@ -788,10 +847,17 @@ def page8():
             st.warning("You have already submitted the form.")
         else:
             responses_df = pd.DataFrame(st.session_state["responses"])
+
+            responses_df["text_a_source"] = [r.get("text_a_source", "") for r in st.session_state["responses"]]
+            responses_df["text_b_source"] = [r.get("text_b_source", "") for r in st.session_state["responses"]]
+            responses_df["text_a_text"] = [r.get("text_a_text", "") for r in st.session_state["responses"]]
+            responses_df["text_b_text"] = [r.get("text_b_text", "") for r in st.session_state["responses"]]
             responses_df["pair_id"] = data["pair_id"]
             responses_df["feminine_style"] = data["feminine_style"]
             responses_df["masculine_style"] = data["masculine_style"]
             responses_df["is_attention_check"] = data["is_attention_check"]
+            responses_df["label"] = data["label"]
+            responses_df["data"] = data["data"]
             responses_df["p_id"] = st.session_state.get("p_id", "")
             responses_df["feedback"] = st.session_state.get("feedback", "")
             responses_df["consent"] = st.session_state.get("consent", "")
@@ -801,11 +867,6 @@ def page8():
             else:
                 responses_df["contrast_score"] = ""
 
-            if "confidence" in responses_df.columns:
-                responses_df["confidence_score"] = responses_df["confidence"].astype(str).str.split(":").str[0]
-            else:
-                responses_df["confidence_score"] = ""
-            
             if "content_alignment" in responses_df.columns:
                 responses_df["content_score"] = responses_df["content_alignment"].astype(str).str.split(":").str[0]
             else:
@@ -816,16 +877,18 @@ def page8():
             else:
                 responses_df["grammar_score"] = ""
 
+            if "confidence" in responses_df.columns:
+                responses_df["confidence_score"] = responses_df["confidence"].astype(str).str.split(":").str[0]
+            else:
+                responses_df["confidence_score"] = ""
+
             timestamp = int(time.time())
             submission_time = datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d_%H-%M-%S")
             filename = f"survey_responses_{user_id}_{submission_time}.csv"
 
             try:
                 responses_df.to_csv(filename, index=False)
-                st.success(
-                    "Thank you for your submission!\n\n"
-                   # "Submission code: **C1DSW210**"
-                )
+                st.success("Thank you for your submission!")
                 st.session_state["submitted"] = True
                 st.session_state["submitted_users"].add(user_id)
             except Exception as e:
