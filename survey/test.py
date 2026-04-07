@@ -434,8 +434,8 @@ def page4():
     )
 
     st.markdown("---")
-    st.markdown("**Style Direction**")
-    st.markdown("Compared with the other text, which one sounds more feminine?")
+    st.markdown("**Compared with the other text, which one sounds more feminine?**")
+
     st.radio(
         "Compared with the other text, which one sounds more feminine?",
         options=feminine_options,
@@ -455,7 +455,7 @@ def page4():
     )
     st.markdown("---")
 
-    st.markdown("If one text sounds more feminine, how would you describe the other text in comparison?")
+    st.markdown("**If one text sounds more feminine, how would you describe the other text in comparison?**")
     st.radio(
         "If one text sounds more feminine, how would you describe the other text in comparison?",
         options=followup_options,
