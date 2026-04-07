@@ -42,7 +42,7 @@ st.markdown(
         white-space: pre-wrap;
     }
     .block-container {
-        max-width: 1700px;
+        max-width: 1100px;
     }
     </style>
     """,
