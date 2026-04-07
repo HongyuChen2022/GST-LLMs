@@ -536,7 +536,7 @@ def page5():
                 <li>There is no correct answer.</li>
                 <li>Please follow your intuition.</li>
                 <li>Base your judgment on style, not topic.</li>
-                <li>Comments are optional.</li>
+                <li>Comments are optional, but free feel to explain the reasoning for your judgements.</li>
             </ul>
         </div>
         """,
