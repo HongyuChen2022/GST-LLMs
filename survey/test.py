@@ -125,7 +125,7 @@ def page1():
 
     st.markdown('<p class="header-large">Description of the Research Study</p>', unsafe_allow_html=True)
     st.markdown(
-        '<p class="custom-text">In this study, we aim to investigate whether two texts sound different in gendered style, especially along a feminine–masculine dimension. By collecting human judgments about stylistic contrast, we hope to identify what factors influence one text to sound more feminine than another, and whether the other text is then perceived as more masculine or simply less feminine. For each pair of short texts, you will rate how strongly the two texts differ in feminine versus masculine style, judge how similar the two texts are in meaning/content and in fluency or grammar, and indicate which text sounds more feminine. If one text is chosen as more feminine, you will then answer a follow-up question about how the other text should be understood in comparison. Please focus on how the texts are written — such as their tone, word choice, and sentence structure — rather than what the texts are about. This research can help support future work on style transfer and AI-based writing assistance.</p>',
+        '<p class="custom-text">In this study, we aim to investigate whether two texts sound different in gendered style, especially along a feminine–masculine dimension. By collecting human judgments about stylistic contrast, we hope to identify what factors influence one text to sound more feminine/masculine than another. For each pair of short texts, you will rate how strongly the two texts differ in feminine versus masculine style, judge how similar the two texts are in meaning/content and in fluency or grammar, and indicate the relative gendered style direction of the pair. Please focus on how the texts are written — such as their tone, word choice, and sentence structure — rather than what the texts are about. This research can help support future work on style transfer and AI-based writing assistance.</p>',
         unsafe_allow_html=True,
     )
 
@@ -215,8 +215,8 @@ def page3():
                 <li><strong>Style contrast:</strong> How strongly are the two texts contrasted along the feminine–masculine style dimension?</li>
                 <li><strong>Meaning similarity:</strong> How similar are the meanings or content of the two texts?</li>
                 <li><strong>Grammar / fluency similarity:</strong> How similar are the two texts in fluency or grammatical acceptability?</li>
-                <li><strong>More feminine:</strong> Which text sounds more feminine relative to the other?</li>
-                <li><strong>Follow-up interpretation:</strong> If one text is more feminine, does the other sound more masculine, or mainly just less feminine?</li>
+                <li><strong>Style Direction:</strong> Which text sounds more feminine relative to the other?</li>
+                <li><strong>Follow-up Question:</strong> If one text is more feminine, does the other sound more masculine, or mainly just less feminine?</li>
                 <li><strong>Confidence:</strong> How confident are you in your judgments?</li>
             </ul>
         </div>
@@ -256,9 +256,9 @@ def page3():
 
     st.markdown(
         """
-        <p class="custom-bold">4. More feminine + follow-up interpretation</p>
+        <p class="custom-bold">4. Style Direction</p>
         <p class="custom-text">
-        You will first indicate which text sounds more feminine relative to the other. If one text is chosen, you will then answer a follow-up question about how to understand the other text: does it sound more masculine, or mainly just less feminine? This helps distinguish whether the pair reflects a stronger feminine–masculine contrast or a smaller difference within a similar stylistic region.
+        You will first indicate which text sounds more feminine relative to the other. If one text is chosen, you will then answer a follow-up question about how to understand the other text: does it sound more masculine, or mainly just less feminine? This helps distinguish whether the pair reflects a stronger feminine–masculine contrast or a smaller difference within a similar style.
         </p>
         """,
         unsafe_allow_html=True,
