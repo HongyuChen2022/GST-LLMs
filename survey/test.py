@@ -40,14 +40,14 @@ st.markdown(
         font-size: 17px !important;
         line-height: 1.7;
         white-space: pre-wrap;
-    }
     .block-container {
-        max-width: 1100px;
+        max-width: 1700px;
     }
     </style>
     """,
     unsafe_allow_html=True,
 )
+
 
 
 @st.cache_data
