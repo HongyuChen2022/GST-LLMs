@@ -434,8 +434,8 @@ def page4():
     )
 
     st.markdown("---")
+    st.markdown("**Style Direction**")
 
-    st.markdown("**Which text sounds more feminine?**")
     st.radio(
         "Compared with the other text, which one sounds more feminine?",
         options=feminine_options,
@@ -453,8 +453,6 @@ def page4():
         """,
         unsafe_allow_html=True,
     )
-
-    st.markdown("---")
 
     st.markdown("**Follow-up interpretation**")
     st.radio(
@@ -668,7 +666,7 @@ def page6():
         st.write(f"Selected value: {response['contrast']}")
     else:
         st.write("No value selected yet.")
-
+    st.markdown("---")
     st.markdown("**Content alignment**")
     content_kwargs = dict(
         label="To what extent do the two texts express the same meaning or content?",
@@ -684,7 +682,7 @@ def page6():
         st.write(f"Selected value: {response['content_alignment']}")
     else:
         st.write("No value selected yet.")
-
+    st.markdown("---")
     st.markdown("**Grammar / fluency alignment**")
     grammar_kwargs = dict(
         label="To what extent do the two texts have the same level of fluency / grammatical acceptability?",
