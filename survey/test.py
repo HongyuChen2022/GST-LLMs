@@ -702,7 +702,7 @@ def page6():
         st.write("No value selected yet.")
 
     st.markdown("---")
-
+    st.markdown("**Style Direction**")
     current_more_feminine = response.get("more_feminine")
     feminine_index = feminine_options.index(current_more_feminine) if current_more_feminine in feminine_options else None
 
