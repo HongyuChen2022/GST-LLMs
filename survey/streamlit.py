@@ -19,27 +19,34 @@ st.markdown(
         font-size: 24px !important;
         font-weight: bold;
     }
+
     .custom-text {
         font-size: 17px !important;
         line-height: 1.6;
     }
+
     .custom-bold {
         font-size: 17px !important;
         font-weight: bold;
     }
+
     .custom-bullet {
         font-size: 17px !important;
         line-height: 1.6;
     }
+
     .pair-box {
-        border: 1px solid #d9d9d9;
+        border: 1px solid var(--secondary-background-color);
         border-radius: 10px;
         padding: 18px;
         min-height: 240px;
-        background-color: #fafafa;
+        background-color: var(--secondary-background-color);
+        color: var(--text-color);
         font-size: 17px !important;
         line-height: 1.7;
         white-space: pre-wrap;
+    }
+
     .block-container {
         max-width: 1600px;
     }
