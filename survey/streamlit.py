@@ -309,7 +309,7 @@ def page4():
         """
         <p class="custom-text">
         Below is an example of the exact type of comparison you will make in the survey.
-        The selected answers and explanations are shown only to illustrate how the task works. You are free to disagree with the selected answers in the example.
+        The selected answers and explanations are shown only to illustrate how the task works. You are free to disagree with these example responses.
         </p>
         """,
         unsafe_allow_html=True,
