@@ -736,7 +736,7 @@ def page7():
         key="feedback_text_area",
     )
 
-    back_to_top()
+   # back_to_top()
 
     if st.button("Next", key="page7_next"):
         st.session_state["current_page"] = "Page 8"
@@ -813,7 +813,7 @@ def page8():
             except Exception as e:
                 st.error(f"An error occurred while saving your response: {e}")
 
-    back_to_top()
+
 
     if st.button("Back", key="page8_back"):
         st.session_state["current_page"] = "Page 7"
