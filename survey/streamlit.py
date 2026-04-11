@@ -88,7 +88,7 @@ def load_data(survey_version):
     return df
 
 SURVEY_VERSION = 2
-data = load_data()
+data = load_data(SURVEY_VERSION )
 
 if "responses" not in st.session_state:
     st.session_state["responses"] = [{} for _ in range(len(data))]
