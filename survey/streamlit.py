@@ -55,6 +55,16 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+def scroll_to_top():
+    st.markdown(
+        """
+        <script>
+            window.scrollTo(0, 0);
+        </script>
+        """,
+        unsafe_allow_html=True,
+    )
+
 
 @st.cache_data
 def load_data(survey_version):
@@ -126,6 +136,7 @@ if "pair_display_order" not in st.session_state:
 
 
 def page1():
+    scroll_to_top
     st.title("Pilot Study on Perception of Gendered Style Contrast")
 
     st.header("Consent Form")
@@ -192,6 +203,7 @@ def page1():
 
 
 def page2():
+    scroll_to_top
     st.session_state["p_id"] = st.text_input(
         "Please enter your Prolific ID",
         st.session_state.get("p_id", ""),
