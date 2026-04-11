@@ -7,6 +7,28 @@ import glob
 import numpy as np
 import streamlit.components.v1 as components
 
+
+def scroll_to_top():
+    components.html(
+        """
+        <script>
+        const scroll = () => {
+            const doc = window.parent.document;
+            doc.documentElement.scrollTop = 0;
+            doc.body.scrollTop = 0;
+            window.parent.scrollTo(0, 0);
+        };
+
+        scroll();
+        setTimeout(scroll, 50);
+        setTimeout(scroll, 150);
+        setTimeout(scroll, 300);
+        </script>
+        """,
+        height=0,
+        width=0,
+    )
+
 st.set_page_config(
     page_title="Pilot Study on Gendered Style Contrast",
     layout="centered",
@@ -55,16 +77,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-def scroll_to_top():
-    components.html(
-        """
-        <script>
-            window.parent.scrollTo(0, 0);
-        </script>
-        """,
-        height=0,
-        width=0,
-    )
+
 
 
 @st.cache_data
