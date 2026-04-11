@@ -210,7 +210,7 @@ def page2():
 
     if st.button("Next", key="page2_next", disabled=not st.session_state.get("p_id")):
         if st.session_state["p_id"] == "hongyuchen":
-            st.session_state["current_page"] = "Page 7"
+            st.session_state["current_page"] = "Page 8"
         else:
             st.session_state["current_page"] = "Page 3"
         st.rerun()
@@ -227,7 +227,7 @@ def page3():
     st.markdown(
         """
         <p class="custom-text">
-        In this study, you will compare <strong>10</strong> pairs of short texts (estimated 15 minutes). Your main task is to judge how strongly the two texts differ along a feminine–masculine stylistic dimension based on your intuitions, while also considering how similar they are in meaning and in fluency or grammatical acceptability. Please base your judgments on <strong> how the texts are written </strong>, such as tone, wording, and sentence structure, rather than what the texts are about and the length of the texts alone.
+        In this study, you will compare <strong>10</strong> pairs of short texts (estimated 15 minutes). Your main task is to judge how strongly the two texts differ along a feminine–masculine stylistic dimension based on your intuitions, while also considering how similar they are in meaning and in fluency or grammatical acceptability. Please base your judgments on <strong>how the texts are written</strong>, such as tone, wording, and sentence structure, rather than what the texts are about and the length of the texts alone.
         </p>
         """,
         unsafe_allow_html=True,
@@ -258,7 +258,7 @@ def page3():
         """
         <p class="custom-bold">1. Style contrast</p>
         <p class="custom-text">
-        A pair has low gendered style contrast if the two texts sound gendered stylistically similar. A pair has high gendered contrast if the two texts feel far apart in tone, word choice, emotional expression, directness, or sentence structure. For more information, please see the example given in next page.
+        A pair has low gendered style contrast if the two texts sound gendered stylistically similar. A pair has high gendered contrast if the two texts feel far apart in tone, word choice, emotional expression, directness, or sentence structure. For more information, please see the example on the next page.
         </p>
         """,
         unsafe_allow_html=True,
@@ -278,7 +278,7 @@ def page3():
         """
         <p class="custom-bold">3. Grammar / fluency similarity</p>
         <p class="custom-text">
-        This question asks whether the two texts are at a similar level of fluency or grammatical acceptability, regardless of the style. If both texts feel similarly natural and well-formed, give a higher rating. If one text feels much less fluent or less grammatically acceptable than the other, give a lower rating. Please see the example given in next page.
+        This question asks whether the two texts are at a similar level of fluency or grammatical acceptability, regardless of the style. If both texts feel similarly natural and well-formed, give a higher rating. If one text feels much less fluent or less grammatically acceptable than the other, give a lower rating. Please see the example on the next page.
         </p>
         """,
         unsafe_allow_html=True,
@@ -297,7 +297,7 @@ def page3():
     st.markdown(
         """
         <p class="custom-text">
-        <strong>There are no strictly correct answers. Please feel free to use "comments" section to explain the reasoning for your judgments. </strong>
+        <strong>There are no strictly correct answers. Please feel free to use the comments section to explain the reasoning for your judgments.</strong>
         </p>
         """,
         unsafe_allow_html=True,
@@ -486,6 +486,34 @@ def page4():
 
 def page5():
     page_top()
+    st.header("Ready to Begin")
+
+    st.markdown(
+        """
+        <p class="custom-text">
+        You are now ready to begin the actual survey.
+        </p>
+
+        <p class="custom-text">
+        On the next page, you will see pairs of texts using the same question format shown in the example.
+        Please follow your own intuitions. There are no strictly correct answers.
+        </p>
+
+        """,
+        unsafe_allow_html=True,
+    )
+
+    if st.button("Begin Survey", key="page5_next"):
+        st.session_state["current_page"] = "Page 6"
+        st.rerun()
+
+    if st.button("Back", key="page5_back"):
+        st.session_state["current_page"] = "Page 4"
+        st.rerun()
+
+
+def page6():
+    page_top()
     st.header("Survey Questions")
 
     current_index = st.session_state["current_text_index"]
@@ -655,11 +683,11 @@ def page5():
     col_back, spacer, col_next = st.columns([1, 4, 1])
 
     with col_back:
-        if st.button("Back", key=f"page5_back_{current_index}"):
+        if st.button("Back", key=f"page6_back_{current_index}"):
             if current_index > 0:
                 st.session_state["current_text_index"] -= 1
             else:
-                st.session_state["current_page"] = "Page 4"
+                st.session_state["current_page"] = "Page 5"
             st.rerun()
 
     with col_next:
@@ -670,11 +698,11 @@ def page5():
             and response.get("confidence") is not None
         )
 
-        if st.button("Next", key=f"page5_next_{current_index}", disabled=not required_complete):
+        if st.button("Next", key=f"page6_next_{current_index}", disabled=not required_complete):
             if current_index < len(data) - 1:
                 st.session_state["current_text_index"] += 1
             else:
-                st.session_state["current_page"] = "Page 6"
+                st.session_state["current_page"] = "Page 7"
             st.rerun()
 
     total_regular_pairs = len(data[data["is_attention_check"] == False])
@@ -694,7 +722,7 @@ def page5():
     back_to_top()
 
 
-def page6():
+def page7():
     page_top()
     st.title("Your Feedback Matters")
 
@@ -706,16 +734,16 @@ def page6():
 
     back_to_top()
 
-    if st.button("Next", key="page6_next"):
-        st.session_state["current_page"] = "Page 7"
+    if st.button("Next", key="page7_next"):
+        st.session_state["current_page"] = "Page 8"
         st.rerun()
 
-    if st.button("Back", key="page6_back"):
-        st.session_state["current_page"] = "Page 5"
+    if st.button("Back", key="page7_back"):
+        st.session_state["current_page"] = "Page 6"
         st.rerun()
 
 
-def page7():
+def page8():
     page_top()
     st.title("End of Survey")
 
@@ -725,7 +753,7 @@ def page7():
         """
     )
 
-    if st.button("Submit", key="page7_submit", disabled=st.session_state.get("submitted", False)):
+    if st.button("Submit", key="page8_submit", disabled=st.session_state.get("submitted", False)):
         user_id = f"{st.session_state.get('p_id', '')}"
 
         if user_id in st.session_state.get("submitted_users", set()):
@@ -783,8 +811,8 @@ def page7():
 
     back_to_top()
 
-    if st.button("Back", key="page7_back"):
-        st.session_state["current_page"] = "Page 6"
+    if st.button("Back", key="page8_back"):
+        st.session_state["current_page"] = "Page 7"
         st.rerun()
 
     user_id = f"{st.session_state.get('p_id', '')}"
@@ -829,3 +857,5 @@ elif st.session_state["current_page"] == "Page 6":
     page6()
 elif st.session_state["current_page"] == "Page 7":
     page7()
+elif st.session_state["current_page"] == "Page 8":
+    page8()
