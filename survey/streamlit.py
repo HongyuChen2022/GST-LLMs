@@ -142,7 +142,7 @@ if "pair_display_order" not in st.session_state:
 
 def page1():
     page_top()
-    st.title("Pilot Study on Perception of Gendered Style Contrast")
+    st.title("Pilot Study on Perception of Gendered Style Contrast in LLM-generated Texts")
 
     st.header("Consent Form")
     st.markdown(
