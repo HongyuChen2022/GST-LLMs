@@ -216,7 +216,7 @@ def page3():
     st.markdown(
         """
         <p class="custom-text">
-        In this study, you will compare <strong>10</strong> pairs of short texts (estimated 15 minutes). Your main task is to judge how strongly the two texts differ along a feminine–masculine stylistic dimension based on your intuitions, while also considering how similar they are in meaning and in fluency or grammatical acceptability. <strong> Please base your judgments on how the texts are written, such as tone, wording, and sentence structure, rather than what the texts are about and the length of the texts alone. </strong>
+        In this study, you will compare <strong>10</strong> pairs of short texts (estimated 15 minutes). Your main task is to judge how strongly the two texts differ along a feminine–masculine stylistic dimension based on your intuitions, while also considering how similar they are in meaning and in fluency or grammatical acceptability. Please base your judgments on <strong> how the texts are written </strong>, such as tone, wording, and sentence structure, rather than what the texts are about and the length of the texts alone.
         </p>
         """,
         unsafe_allow_html=True,
