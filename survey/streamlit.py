@@ -330,6 +330,7 @@ def page3():
 
 
 def page4():
+    scroll_to_top()
     st.markdown('<p class="header-large">Example of the Survey Task</p>', unsafe_allow_html=True)
 
     st.markdown(
