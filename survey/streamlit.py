@@ -58,12 +58,10 @@ st.markdown(
 
 
 
-SURVEY_VERSION = 1
-
 @st.cache_data
-def load_data():
+def load_data(survey_version):
     df = pd.read_csv("survey/versioned_dataset.csv")
-    df = df[df["survey_version"] == SURVEY_VERSION].reset_index(drop=True)
+    df = df[df["survey_version"] == survey_version].reset_index(drop=True)
 
     required_cols = {
         "reference_text",
@@ -89,7 +87,7 @@ def load_data():
 
     return df
 
-
+SURVEY_VERSION = 2
 data = load_data()
 
 if "responses" not in st.session_state:
