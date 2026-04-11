@@ -146,7 +146,7 @@ def page1():
 
     st.header("Consent Form")
     st.markdown(
-        '<p class="custom-text">You are invited to participate in a pilot study designed to explore perceptions of contrasted linguistic style in written text. Before you decide to participate, it is important that you understand why this study is being conducted and what your participation involves. Please read the following information carefully.</p>',
+        '<p class="custom-text">You are invited to participate in a pilot study designed to explore perceptions of contrasted linguistic style in LLM-generated texts. Before you decide to participate, it is important that you understand why this study is being conducted and what your participation involves. Please read the following information carefully.</p>',
         unsafe_allow_html=True,
     )
 
