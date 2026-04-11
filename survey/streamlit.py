@@ -12,7 +12,14 @@ def page_top():
 
 
 def back_to_top():
-    st.markdown('<a href="#top">Back to top</a>', unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div style="text-align: right; margin-top: 1rem;">
+            <a href="#top">Back to top</a>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 
 st.set_page_config(
