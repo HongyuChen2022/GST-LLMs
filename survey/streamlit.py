@@ -48,7 +48,7 @@ st.markdown(
     }
 
     .block-container {
-        max-width: 1300px;
+        max-width: 1100px;
     }
     </style>
     """,
