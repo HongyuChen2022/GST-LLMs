@@ -490,13 +490,10 @@ def page5():
 
     st.markdown(
         """
-        <p class="custom-text">
-        You are now ready to begin the actual survey.
-        </p>
+
 
         <p class="custom-text">
         On the next page, you will see pairs of texts using the same question format shown in the example.
-        Please follow your own intuitions. There are no strictly correct answers.
         </p>
 
         """,
