@@ -57,63 +57,35 @@ st.markdown(
 
 
 
-@st.cache_data
+
+SURVEY_VERSION = 1
+
 @st.cache_data
 def load_data():
-    df_with = pd.read_csv("survey/ds_style_instructions.csv")
-    df_without = pd.read_csv("survey/ds_no_instructions.csv")
+    df = pd.read_csv("survey/versioned_dataset.csv")
+    df = df[df["survey_version"] == SURVEY_VERSION].reset_index(drop=True)
 
-    required_cols = {"feminine_style", "masculine_style"}
-    for name, df in {
-        "ds_style_instructions.csv": df_with,
-        "ds_no_instructions.csv": df_without,
-    }.items():
-        missing = required_cols - set(df.columns)
-        if missing:
-            raise ValueError(f"Missing required columns in {name}: {missing}")
-
-    # Keep track of source condition
-    df_with = df_with.copy()
-    df_without = df_without.copy()
-    df_with["source_dataset"] = "with_instructions"
-    df_without["source_dataset"] = "no_instructions"
-
-    total_sample_size = 10
-    sample_per_dataset = total_sample_size // 2  # 5 and 5
-
-    rng = np.random.default_rng(40)
-
-    n_with = min(sample_per_dataset, len(df_with))
-    n_without = min(sample_per_dataset, len(df_without))
-
-    idx_with = rng.choice(len(df_with), size=n_with, replace=False)
-    idx_without = rng.choice(len(df_without), size=n_without, replace=False)
-
-    sampled_with = df_with.iloc[idx_with]
-    sampled_without = df_without.iloc[idx_without]
-
-    df = pd.concat([sampled_with, sampled_without], ignore_index=True)
-
-    # Shuffle the final combined sample
-    shuffled_idx = rng.permutation(len(df))
-    df = df.iloc[shuffled_idx].reset_index(drop=True)
+    required_cols = {
+        "reference_text",
+        "feminine_style",
+        "masculine_style",
+        "source_dataset",
+        "item_id",
+        "survey_version",
+        "pair_in_version",
+    }
+    missing = required_cols - set(df.columns)
+    if missing:
+        raise ValueError(f"Missing required columns in versioned_dataset.csv: {missing}")
 
     df["pair_id"] = df.index + 1
 
     if "is_attention_check" not in df.columns:
         df["is_attention_check"] = False
-    else:
-        df["is_attention_check"] = df["is_attention_check"].fillna(False)
-
     if "label" not in df.columns:
         df["label"] = ""
-    else:
-        df["label"] = df["label"].fillna("")
-
     if "data" not in df.columns:
         df["data"] = ""
-    else:
-        df["data"] = df["data"].fillna("")
 
     return df
 
@@ -897,14 +869,14 @@ def page8():
             responses_df["pair_id"] = data["pair_id"]
             responses_df["feminine_style"] = data["feminine_style"]
             responses_df["masculine_style"] = data["masculine_style"]
-            responses_df["is_attention_check"] = data["is_attention_check"]
-            responses_df["label"] = data["label"]
-            responses_df["data"] = data["data"]
+          #  responses_df["is_attention_check"] = data["is_attention_check"]
+          #  responses_df["label"] = data["label"]
+          #  responses_df["data"] = data["data"]
             responses_df["p_id"] = st.session_state.get("p_id", "")
             responses_df["feedback"] = st.session_state.get("feedback", "")
             responses_df["consent"] = st.session_state.get("consent", "")
             responses_df["source_dataset"] = data["source_dataset"] 
-              
+
             if "contrast" in responses_df.columns:
                 responses_df["contrast_score"] = responses_df["contrast"].astype(str).str.split(":").str[0]
             else:
