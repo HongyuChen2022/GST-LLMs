@@ -840,7 +840,7 @@ def page8():
 
             try:
                 responses_df.to_csv(filename, index=False)
-                st.success("Thank you for your submission!")
+                st.success("Thank you for your submission! You completion code is <strong>C10BORY8</strong>")
                 st.session_state["submitted"] = True
                 st.session_state["submitted_users"].add(user_id)
             except Exception as e:
