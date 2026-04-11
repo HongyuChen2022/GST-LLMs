@@ -58,7 +58,7 @@ st.markdown(
 
 
 
-SURVEY_VERSION = 1
+SURVEY_VERSION = 2
 
 @st.cache_data
 def load_data():
