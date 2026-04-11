@@ -150,7 +150,7 @@ if "pair_display_order" not in st.session_state:
 
 
 def page1():
-    scroll_to_top
+    scroll_to_top()
     st.title("Pilot Study on Perception of Gendered Style Contrast")
 
     st.header("Consent Form")
@@ -217,7 +217,7 @@ def page1():
 
 
 def page2():
-    scroll_to_top
+    scroll_to_top()
     st.session_state["p_id"] = st.text_input(
         "Please enter your Prolific ID",
         st.session_state.get("p_id", ""),
@@ -237,7 +237,7 @@ def page2():
 
 
 def page3():
-    scroll_to_top
+    scroll_to_top()
     st.header("Guidelines for Comparing Text Pairs along Feminine–Masculine Style")
 
     st.markdown(
@@ -500,7 +500,7 @@ def page4():
 
 
 def page5():
-    scroll_to_top
+    scroll_to_top()
     st.header("Survey Questions")
 
     current_index = st.session_state["current_text_index"]
