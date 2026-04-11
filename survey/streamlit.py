@@ -5,29 +5,15 @@ import os
 from datetime import datetime
 import glob
 import numpy as np
-import streamlit.components.v1 as components
 
 
-def scroll_to_top():
-    components.html(
-        """
-        <script>
-        const scroll = () => {
-            const doc = window.parent.document;
-            doc.documentElement.scrollTop = 0;
-            doc.body.scrollTop = 0;
-            window.parent.scrollTo(0, 0);
-        };
+def page_top():
+    st.markdown('<div id="top"></div>', unsafe_allow_html=True)
 
-        scroll();
-        setTimeout(scroll, 50);
-        setTimeout(scroll, 150);
-        setTimeout(scroll, 300);
-        </script>
-        """,
-        height=0,
-        width=0,
-    )
+
+def back_to_top():
+    st.markdown('<a href="#top">Back to top</a>', unsafe_allow_html=True)
+
 
 st.set_page_config(
     page_title="Pilot Study on Gendered Style Contrast",
@@ -76,8 +62,6 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-
-
 
 
 @st.cache_data
@@ -150,7 +134,7 @@ if "pair_display_order" not in st.session_state:
 
 
 def page1():
-    scroll_to_top()
+    page_top()
     st.title("Pilot Study on Perception of Gendered Style Contrast")
 
     st.header("Consent Form")
@@ -217,7 +201,7 @@ def page1():
 
 
 def page2():
-    scroll_to_top()
+    page_top()
     st.session_state["p_id"] = st.text_input(
         "Please enter your Prolific ID",
         st.session_state.get("p_id", ""),
@@ -237,7 +221,7 @@ def page2():
 
 
 def page3():
-    scroll_to_top()
+    page_top()
     st.header("Guidelines for Comparing Text Pairs along Feminine–Masculine Style")
 
     st.markdown(
@@ -300,7 +284,6 @@ def page3():
         unsafe_allow_html=True,
     )
 
-
     st.markdown(
         """
         <p class="custom-bold">4. Confidence</p>
@@ -320,6 +303,8 @@ def page3():
         unsafe_allow_html=True,
     )
 
+    back_to_top()
+
     if st.button("Next", key="page3_next"):
         st.session_state["current_page"] = "Page 4"
         st.rerun()
@@ -330,7 +315,7 @@ def page3():
 
 
 def page4():
-    scroll_to_top()
+    page_top()
     st.markdown('<p class="header-large">Example of the Survey Task</p>', unsafe_allow_html=True)
 
     st.markdown(
@@ -342,8 +327,6 @@ def page4():
         """,
         unsafe_allow_html=True,
     )
-
-
 
     c1, c2 = st.columns(2)
 
@@ -490,6 +473,7 @@ def page4():
         unsafe_allow_html=True,
     )
 
+    back_to_top()
 
     if st.button("Next", key="page4_next"):
         st.session_state["current_page"] = "Page 5"
@@ -501,7 +485,7 @@ def page4():
 
 
 def page5():
-    scroll_to_top()
+    page_top()
     st.header("Survey Questions")
 
     current_index = st.session_state["current_text_index"]
@@ -707,9 +691,11 @@ def page5():
     progress = completed_regular_pairs / total_regular_pairs if total_regular_pairs else 0
     st.progress(progress)
     st.write(f"Completed {completed_regular_pairs} out of {total_regular_pairs} pairs.")
+    back_to_top()
 
 
 def page6():
+    page_top()
     st.title("Your Feedback Matters")
 
     st.session_state["feedback"] = st.text_area(
@@ -717,6 +703,8 @@ def page6():
         value=st.session_state.get("feedback", ""),
         key="feedback_text_area",
     )
+
+    back_to_top()
 
     if st.button("Next", key="page6_next"):
         st.session_state["current_page"] = "Page 7"
@@ -728,6 +716,7 @@ def page6():
 
 
 def page7():
+    page_top()
     st.title("End of Survey")
 
     st.markdown(
@@ -791,6 +780,8 @@ def page7():
                 st.session_state["submitted_users"].add(user_id)
             except Exception as e:
                 st.error(f"An error occurred while saving your response: {e}")
+
+    back_to_top()
 
     if st.button("Back", key="page7_back"):
         st.session_state["current_page"] = "Page 6"
