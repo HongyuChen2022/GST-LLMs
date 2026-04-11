@@ -152,7 +152,7 @@ def page1():
 
     st.markdown('<p class="header-large">Description of the Research Study</p>', unsafe_allow_html=True)
     st.markdown(
-        '<p class="custom-text">In this study, we aim to investigate <strong>whether two texts sound different in gendered style</strong>, especially along a feminine–masculine dimension. By collecting human judgments about stylistic contrast, we hope to identify what factors influence one text to sound more feminine or masculine than another. For each pair of short texts, you will rate how strongly the two texts differ in feminine versus masculine style, and judge how similar the two texts are in meaning/content and in fluency or grammar. This research can help support future work on style transfer and AI-based writing assistance.</p>',
+        '<p class="custom-text">In this study, we aim to investigate <strong>whether two LLM-generated texts sound different in gendered style</strong>, especially along a feminine–masculine dimension. By collecting human judgments about stylistic contrast, we hope to identify what factors influence one generated text to sound more feminine or masculine than another. For each pair of short texts, you will rate how strongly the two generated texts differ in feminine versus masculine style, and judge how similar the two texts are in meaning/content and in fluency or grammar. This research can help support future work on style transfer and AI-based writing assistance.</p>',
         unsafe_allow_html=True,
     )
 
