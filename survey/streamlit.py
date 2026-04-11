@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 import glob
 import numpy as np
-
+import streamlit.components.v1 as components
 
 st.set_page_config(
     page_title="Pilot Study on Gendered Style Contrast",
@@ -56,13 +56,14 @@ st.markdown(
 )
 
 def scroll_to_top():
-    st.markdown(
+    components.html(
         """
         <script>
-            window.scrollTo(0, 0);
+            window.parent.scrollTo(0, 0);
         </script>
         """,
-        unsafe_allow_html=True,
+        height=0,
+        width=0,
     )
 
 
@@ -223,6 +224,7 @@ def page2():
 
 
 def page3():
+    scroll_to_top
     st.header("Guidelines for Comparing Text Pairs along Feminine–Masculine Style")
 
     st.markdown(
@@ -485,6 +487,7 @@ def page4():
 
 
 def page5():
+    scroll_to_top
     st.header("Survey Questions")
 
     current_index = st.session_state["current_text_index"]
