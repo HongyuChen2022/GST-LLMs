@@ -136,7 +136,7 @@ def page1():
 
     st.markdown('<p class="header-large">Description of the Research Study</p>', unsafe_allow_html=True)
     st.markdown(
-        '<p class="custom-text">In this study, we aim to investigate <strong>whether two texts sound different in gendered style</strong>, especially along a feminine–masculine dimension. By collecting human judgments about stylistic contrast, we hope to identify what factors influence one text to sound more feminine or masculine than another. For each pair of short texts, you will rate how strongly the two texts differ in feminine versus masculine style, and judge how similar the two texts are in meaning/content and in fluency or grammar. Please focus on how the texts are written, such as tone, word choice, and sentence structure, rather than what the texts are about and the length of the texts alone. This research can help support future work on style transfer and AI-based writing assistance.</p>',
+        '<p class="custom-text">In this study, we aim to investigate <strong>whether two texts sound different in gendered style</strong>, especially along a feminine–masculine dimension. By collecting human judgments about stylistic contrast, we hope to identify what factors influence one text to sound more feminine or masculine than another. For each pair of short texts, you will rate how strongly the two texts differ in feminine versus masculine style, and judge how similar the two texts are in meaning/content and in fluency or grammar. This research can help support future work on style transfer and AI-based writing assistance.</p>',
         unsafe_allow_html=True,
     )
 
@@ -216,7 +216,7 @@ def page3():
     st.markdown(
         """
         <p class="custom-text">
-        In this study, you will compare <strong>10</strong> pairs of short texts (estimated 15 minutes). Your main task is to judge how strongly the two texts differ along a feminine–masculine stylistic dimension, while also considering how similar they are in meaning and in fluency or grammatical acceptability.
+        In this study, you will compare <strong>10</strong> pairs of short texts (estimated 15 minutes). Your main task is to judge how strongly the two texts differ along a feminine–masculine stylistic dimension based on your intuitions, while also considering how similar they are in meaning and in fluency or grammatical acceptability.
         </p>
         """,
         unsafe_allow_html=True,
@@ -247,7 +247,7 @@ def page3():
         """
         <p class="custom-bold">1. Style contrast</p>
         <p class="custom-text">
-        A pair has low contrast if the two texts sound stylistically similar. A pair has high contrast if the two texts feel far apart in tone, word choice, emotional expression, directness, or sentence structure.
+        A pair has low gendered style contrast if the two texts sound gendered stylistically similar. A pair has high gendered contrast if the two texts feel far apart in tone, word choice, emotional expression, directness, or sentence structure. For more information, please see the example given in next page.
         </p>
         """,
         unsafe_allow_html=True,
@@ -267,23 +267,12 @@ def page3():
         """
         <p class="custom-bold">3. Grammar / fluency similarity</p>
         <p class="custom-text">
-        This question asks whether the two texts are at a similar level of fluency or grammatical acceptability. If both texts feel similarly natural and well-formed, give a higher rating. If one text feels much less fluent or less grammatically acceptable than the other, give a lower rating.
+        This question asks whether the two texts are at a similar level of fluency or grammatical acceptability, regardless of the style. If both texts feel similarly natural and well-formed, give a higher rating. If one text feels much less fluent or less grammatically acceptable than the other, give a lower rating. Please see the example given in next page.
         </p>
         """,
         unsafe_allow_html=True,
     )
 
-    st.markdown(
-        """
-        <p class="custom-text">
-        <strong>Example:</strong><br><br>
-        <em>Text A:</em> "The project was completed efficiently and met all requirements."<br>
-        <em>Text B:</em> "Everyone worked so thoughtfully together, and everything came together smoothly in the end."<br><br>
-        Although the two texts differ in style, both are fluent and grammatically well-formed. This pair would receive a high similarity rating in grammar/fluency.
-        </p>
-        """,
-        unsafe_allow_html=True,
-    )
 
     st.markdown(
         """
@@ -298,7 +287,8 @@ def page3():
     st.markdown(
         """
         <p class="custom-text">
-        Please base your judgments on how the texts are written, such as tone, wording, and sentence structure, rather than what the texts are about and the length of the texts alone.
+        <strong> Please base your judgments on how the texts are written, such as tone, wording, and sentence structure, rather than what the texts are about and the length of the texts alone.
+        There are no strictly correct answers. Please feel free to use "comments" section to explain the reasoning for your judgments. <\strong>
         </p>
         """,
         unsafe_allow_html=True,
@@ -320,11 +310,13 @@ def page4():
         """
         <p class="custom-text">
         Below is an example of the exact type of comparison you will make in the survey.
-        The selected answers and explanations are shown only to illustrate how the task works.
+        The selected answers and explanations are shown only to illustrate how the task works. You are free to disagree with the judgements given in the example.
         </p>
         """,
         unsafe_allow_html=True,
     )
+
+
 
     c1, c2 = st.columns(2)
 
@@ -471,15 +463,6 @@ def page4():
         unsafe_allow_html=True,
     )
 
-    st.markdown(
-        """
-        <p class="custom-text">
-        This is only an example to show how the survey works. In the actual study, there are no strictly correct answers.
-        Please use your own intuition when comparing each pair. Feel free to use comments to explain the reasoning for your judgments.
-        </p>
-        """,
-        unsafe_allow_html=True,
-    )
 
     if st.button("Next", key="page4_next"):
         st.session_state["current_page"] = "Page 5"
