@@ -853,7 +853,7 @@ def page8():
         st.rerun()
 
     user_id = f"{st.session_state.get('p_id', '')}"
-    if user_id == "hongyuchen":
+    if user_id == "arr":
         st.markdown("---")
         st.header("Admin Section")
 
