@@ -70,7 +70,7 @@ st.markdown(
 
 @st.cache_data
 def load_data(version):
-    path = f"{SURVEY_VERSION_FOLDER}/version_{version}.csv"
+    path = f"survey_2/{SURVEY_VERSION_FOLDER}/version_{version}.csv"
 
     st.write("Current working directory:", os.getcwd())
     st.write("Files here:", os.listdir("."))
