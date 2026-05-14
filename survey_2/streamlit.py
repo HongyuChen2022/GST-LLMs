@@ -88,7 +88,7 @@ def load_data(version):
     - source_dataset
     - style_condition
     """
-    path = f"survey_2/{SURVEY_VERSION_FOLDER}/version_{version}.csv"
+    path = f"survey/{SURVEY_VERSION_FOLDER}/version_{version}.csv"
 
     if not os.path.exists(path):
         raise FileNotFoundError(f"Could not find survey version file: {path}")
@@ -184,7 +184,7 @@ def page1():
         <p class="custom-text">For questions about the study or to report any adverse effects, please contact the researcher at hongyu.chen@iris.uni-stuttgart.de / Hongyu.Chen@ims.uni-stuttgart.de.</p>
 
         <p class="header-large">Consent</p>
-        <p class="custom-text">Please indicate below that you are at least 18 years old, have read and understood this consent form, are comfortable using English to complete the task, and agree to participate in this research study.</p>
+        <p class="custom-text">Please indicate the information below that you are at least 18 years old, have read and understood this consent form, are comfortable using English to complete the task, and agree to participate in this research study</p>
         """,
         unsafe_allow_html=True,
     )
@@ -328,7 +328,7 @@ def page3():
                 <li>The text exhibits no clear tendencies toward either feminine or masculine linguistic features.</li>
             </ul>
         </div>
-        <p class="custom-bold">On the next page, you'll find examples showing how texts may be rated in each style for this study.</p>
+        <p class="custom-bold">On the next page, you'll find examples showing how data are rated in each style for this study.</p>
         """,
         unsafe_allow_html=True,
     )
@@ -433,14 +433,14 @@ def page5():
     st.markdown(
         """
         <p class="custom-text">
-        There are 40 short texts/posts plus 3 attention checks in the following pages. For each regular text/post, please provide your perception of the writing style: masculine, feminine, or neutral.
+        There are 40 short data (posts) provided in the following pages, which will take an estimated 25 minutes to complete. For each text (post), please provide your perception on the writing style -- masculine/feminine/neutral.
         </p>
         """,
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        '<p class="custom-bold">For attention checks, please simply select the instructed answer. Attention checks do not ask for confidence or comments.</p>',
+        '<p class="custom-bold">For attention checks, please simply select the instructed answer. Attention checks do not require confidence scores or comments.</p>',
         unsafe_allow_html=True,
     )
 
