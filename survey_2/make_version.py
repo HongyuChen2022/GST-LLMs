@@ -1,8 +1,11 @@
 import pandas as pd
-import random
 import os
 
 os.makedirs("survey_versions", exist_ok=True)
+
+# =========================================================
+# LOAD MAIN DATASETS
+# =========================================================
 
 fine_df = pd.read_csv("style_instruction.csv")
 noinst_df = pd.read_csv("no_instruction.csv")
@@ -10,7 +13,7 @@ noinst_df = pd.read_csv("no_instruction.csv")
 
 full_df = pd.concat([fine_df, noinst_df], ignore_index=True)
 
-# feminine
+# feminine texts
 fem_df = full_df[[
     "item_id",
     "data_source",
@@ -21,7 +24,7 @@ fem_df = full_df[[
 fem_df = fem_df.rename(columns={"feminine_style": "short_text"})
 fem_df["style_condition"] = "feminine"
 
-# masculine
+# masculine texts
 masc_df = full_df[[
     "item_id",
     "data_source",
@@ -34,7 +37,24 @@ masc_df["style_condition"] = "masculine"
 
 all_data = pd.concat([fem_df, masc_df], ignore_index=True)
 
-# split into 5 versions
+all_data["is_attention_check"] = False
+
+# =========================================================
+# LOAD ATTENTION CHECKS
+# =========================================================
+
+attention_df = pd.read_csv("attention_checks.csv")
+
+attention_df["is_attention_check"] = True
+attention_df["item_id"] = "attention_check"
+attention_df["data_source"] = "attention_check"
+attention_df["source_dataset"] = "attention_check"
+attention_df["style_condition"] = "attention_check"
+
+# =========================================================
+# CREATE 5 SURVEY VERSIONS
+# =========================================================
+
 for version in range(5):
 
     version_df = pd.concat([
@@ -59,11 +79,13 @@ for version in range(5):
             (all_data["style_condition"] == "masculine")
         ].sample(10, random_state=version),
 
-    ]).sample(frac=1, random_state=version).reset_index(drop=True)
+        attention_df
+
+    ]).sample(frac=1, random_state=version + 100).reset_index(drop=True)
 
     version_df.to_csv(
-        f"version_{version}.csv",
+        f"survey_versions/version_{version}.csv",
         index=False
     )
 
-print("Created 5 survey versions.")
+print("Created 5 survey versions with 3 attention checks each.")
