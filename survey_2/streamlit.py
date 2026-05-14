@@ -70,21 +70,37 @@ st.markdown(
 
 @st.cache_data
 def load_data(version):
+    """
+    Loads one pre-generated survey version.
+
+    Expected file path:
+    survey_versions/version_0.csv
+    survey_versions/version_1.csv
+    ...
+    survey_versions/version_4.csv
+
+    Expected columns:
+    - short_text
+    - is_attention_check
+    - expected_answer
+    - item_id
+    - data_source
+    - source_dataset
+    - style_condition
+    """
     path = f"survey_2/{SURVEY_VERSION_FOLDER}/version_{version}.csv"
-
-    st.write("Current working directory:", os.getcwd())
-    st.write("Files here:", os.listdir("."))
-    st.write("Looking for:", path)
-
-    if os.path.exists(SURVEY_VERSION_FOLDER):
-        st.write("Files in survey_versions:", os.listdir(SURVEY_VERSION_FOLDER))
-    else:
-        st.write("survey_versions folder does not exist")
 
     if not os.path.exists(path):
         raise FileNotFoundError(f"Could not find survey version file: {path}")
 
     data = pd.read_csv(path)
+
+    if "is_attention_check" not in data.columns:
+        data["is_attention_check"] = False
+
+    if "expected_answer" not in data.columns:
+        data["expected_answer"] = ""
+
     return data
 
 
@@ -515,8 +531,10 @@ def page6():
         )
 
     # Style scale
+    style_key = f"style_segmented_{current_index}"
+
     def update_style():
-        st.session_state["responses"][current_index]["style"] = st.session_state["style_segmented"]
+        st.session_state["responses"][current_index]["style"] = st.session_state[style_key]
 
     current_style = st.session_state["responses"][current_index].get("style", None)
 
@@ -524,7 +542,7 @@ def page6():
         "Select a scale:",
         STYLE_OPTIONS,
         default=current_style,
-        key="style_segmented",
+        key=style_key,
         on_change=update_style,
     )
 
