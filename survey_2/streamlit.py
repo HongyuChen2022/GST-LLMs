@@ -710,11 +710,13 @@ def page8():
         # Check attention checks
         responses_df["attention_check_passed"] = ""
         attention_mask = responses_df["is_attention_check"].apply(is_attention_check_value)
-
+        responses_df["attention_check_passed"] = pd.NA
         responses_df.loc[attention_mask, "attention_check_passed"] = (
             responses_df.loc[attention_mask, "style_score"]
-            == pd.to_numeric(responses_df.loc[attention_mask, "expected_answer"], errors="coerce")
-        )
+            == pd.to_numeric(
+                responses_df.loc[attention_mask, "expected_answer"], 
+                errors="coerce")
+                ).astype("boolean")
 
         timestamp = int(time.time())
         submission_time = datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d_%H-%M-%S")
