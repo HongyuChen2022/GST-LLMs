@@ -12,7 +12,7 @@ import glob
 
 N_SURVEY_VERSIONS = 5
 SURVEY_VERSION_FOLDER = "survey_versions"
-COMPLETION_CODE = "****"  # replace with your real Prolific completion code
+COMPLETION_CODE = "C1DSW210"  # replace with your real Prolific completion code
 ADMIN_ID = "hongyuchen"
 
 STYLE_OPTIONS = [
