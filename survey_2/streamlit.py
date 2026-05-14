@@ -88,7 +88,7 @@ def load_data(version):
     - source_dataset
     - style_condition
     """
-    path = f"survey/{SURVEY_VERSION_FOLDER}/version_{version}.csv"
+    path = f"survey_2/{SURVEY_VERSION_FOLDER}/version_{version}.csv"
 
     if not os.path.exists(path):
         raise FileNotFoundError(f"Could not find survey version file: {path}")
@@ -105,15 +105,7 @@ def load_data(version):
 
 
 def get_version_from_url():
-    """
-    Reads the survey version from the URL.
 
-    Example URLs:
-    https://your-app-url.streamlit.app/?version=0
-    https://your-app-url.streamlit.app/?version=1
-    ...
-    https://your-app-url.streamlit.app/?version=4
-    """
     try:
         version = int(st.query_params.get("version", 0))
     except Exception:
@@ -142,11 +134,6 @@ def is_attention_check_value(value):
 
 def page1():
     st.title("Pilot Study on Masculine/Feminine/Gender-Neutral Style Perception")
-
-    st.markdown(
-        '<p class="custom-text">We appreciate your feedback! Please fill out the survey below.</p>',
-        unsafe_allow_html=True,
-    )
 
     st.header("Consent Form")
 
@@ -688,7 +675,7 @@ def page8():
         responses_df["expected_answer"] = data.get("expected_answer", "")
         responses_df["survey_version"] = st.session_state.get("survey_version", "")
 
-        for col in ["item_id", "data_source", "source_dataset", "style_condition", "text_id"]:
+        for col in ["item_id", "source_dataset", "style_condition", "reference_text"]:
             if col in data.columns:
                 responses_df[col] = data[col]
             else:
