@@ -415,44 +415,72 @@ def page4():
 # ============================================================
 
 def page5():
-    st.header("Survey Instructions")
+    st.header('Survey Instructions')
+    st.markdown(
+        """ 
+        <p class="custom-text">
+        There are 40 short texts provided in the following pages, which will take an estimated 25 minutes to complete. For each text (post), please provide your perception on the writing style -- masculine/feminine/neutral.
+        </p>
+
+    """,
+        unsafe_allow_html=True)
 
     st.markdown(
         """
-        <p class="custom-text">
-        There are 40 short data (posts) provided in the following pages, which will take an estimated 25 minutes to complete. For each text (post), please provide your perception on the writing style -- masculine/feminine/neutral.
-        </p>
+        <p class="custom-bold">A recap of the description to each class on the scale:</p>
+        """, unsafe_allow_html=True
+    )
+    st.markdown("""
+                    1. **Very Feminine:** The text is strongly perceived as feminine based on linguistic style.
+                    2. **Somewhat Feminine:** The text has some feminine characteristics, but they are not dominant.
+                    3. **Neutral:** The text has no noticeable masculine or feminine characteristics. 
+                    4. **Somewhat Masculine:** The text has some masculine characteristics, but they are not dominant. 
+                    5. **Very Masculine:** The text is strongly perceived as masculine based on linguistic style.
+                    """)
+
+    st.markdown(
+        """
+        <p class="custom-bold">Things to remember while you are annotating:</p>
+        """, unsafe_allow_html=True
+    )
+
+    st.markdown(
+        """
+        <div class="custom-bullet">
+            <ul>
+                <li><strong>Consider Overall Impression:</strong> Evaluate the text holistically, rather than isolating individual sentences or words.</li>
+                <li><strong>Avoid Bias:</strong> Base your decision on the language used, not your assumptions about gender roles or stereotypes regarding the author who wrote the data.</li>
+                <li><strong>Confidence Score:</strong> Please express your certainty/uncertantity of rating with the following confidence score:
+                    <ul>
+                        <li>1 = <strong>Not Confident.</strong> You were unsure or found the text ambiguous.</li>
+                        <li>2 = <strong>Somewhat Confident.</strong> You made a judgment but still felt uncertain or had significant doubts. </li>
+                        <li>3 = <strong>Moderately Confident.</strong> You felt reasonably sure of your judgment but had some doubts. </li>
+                        <li>4 = <strong>Very Confident.</strong> You were very certain about your judgment with little to no hesitation. </li>
+                    </ul> 
+                </li><br>
+                <li><strong>Add Comments (Optional):</strong> Briefly explain your rating if it is particularly high or low. Comments are not mandatory but help us understand your reasoning.</li>
+            </ul>
+        </div>
         """,
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        '<p class="custom-bold">For attention checks, please simply select the instructed answer. Attention checks do not require confidence scores or comments.</p>',
-        unsafe_allow_html=True,
+        """
+        <p class="custom-bold">Final Notes</p>
+        """, unsafe_allow_html=True
     )
 
-    st.markdown('<p class="custom-bold">A recap of the description to each class on the scale:</p>', unsafe_allow_html=True)
-    st.markdown(
-        """
-        1. **Very Feminine:** The text is strongly perceived as feminine based on linguistic style.
-        2. **Somewhat Feminine:** The text has some feminine characteristics, but they are not dominant.
-        3. **Neutral:** The text has no noticeable masculine or feminine characteristics.
-        4. **Somewhat Masculine:** The text has some masculine characteristics, but they are not dominant.
-        5. **Very Masculine:** The text is strongly perceived as masculine based on linguistic style.
-        """
-    )
-
-    st.markdown('<p class="custom-bold">Things to remember while you are annotating:</p>', unsafe_allow_html=True)
     st.markdown(
         """
         <div class="custom-bullet">
-            <ul>
-                <li><strong>Consider Overall Impression:</strong> Evaluate each regular text holistically.</li>
-                <li><strong>Avoid Bias:</strong> Base your decision on the language used, not assumptions about gender roles.</li>
-                <li><strong>Confidence Score:</strong> For regular texts, please express your certainty/uncertainty of rating.</li>
-                <li><strong>Add Comments:</strong> Comments are optional but helpful for regular texts.</li>
+            <ul> 
+                <li>There is no correct answer to each rating. Please follow your intuition to make the judgement. </li>
+                <li>If you’re unsure, take a moment to re-read the text and focus on its overall style.</li>
+                <li>It’s okay to feel that some data are ambiguous -- please express this uncertantity with the Confidence Score.</li>
+                <li>Thank you for your participation—your insights are valuable!</li>
             </ul>
-        </div>
+        </div> <br><br>
         """,
         unsafe_allow_html=True,
     )
@@ -460,7 +488,6 @@ def page5():
     if st.button("Next"):
         st.session_state["current_page"] = "Page 6"
         st.rerun()
-
     if st.button("Back"):
         st.session_state["current_page"] = "Page 4"
         st.rerun()
