@@ -72,17 +72,19 @@ st.markdown(
 def load_data(version):
     path = f"{SURVEY_VERSION_FOLDER}/version_{version}.csv"
 
+    st.write("Current working directory:", os.getcwd())
+    st.write("Files here:", os.listdir("."))
+    st.write("Looking for:", path)
+
+    if os.path.exists(SURVEY_VERSION_FOLDER):
+        st.write("Files in survey_versions:", os.listdir(SURVEY_VERSION_FOLDER))
+    else:
+        st.write("survey_versions folder does not exist")
+
     if not os.path.exists(path):
         raise FileNotFoundError(f"Could not find survey version file: {path}")
 
     data = pd.read_csv(path)
-
-    if "is_attention_check" not in data.columns:
-        data["is_attention_check"] = False
-
-    if "expected_answer" not in data.columns:
-        data["expected_answer"] = ""
-
     return data
 
 
