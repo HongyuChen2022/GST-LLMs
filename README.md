@@ -1,6 +1,6 @@
 # Prompting LLMs for Perceived Gendered Style Stransfer
 
-This repository contains code and data for the paper **“Contrast Comes at a Cost: Prompting Large Language Models for Perception-Centered Gendered Style Transfer.”**
+This repository contains code and data for the paper [Contrast Comes at a Cost: Prompting Large Language Models for Perception-Centered Gendered Style Transfer](https://aclanthology.org/2026.emnlp-main.2477/) (Chen et al., EMNLP 2026)
 
 ## About
 
@@ -28,9 +28,9 @@ Experiments cover Gemma 3, Gemma 2, Qwen2.5, Llama 3.1, and DeepSeek-V3 using 50
 
 The generated texts are research artifacts and should not be used for demographic profiling or treated as universal representations of how people of different genders write.
 
-## Citation
 
-[Contrast Comes at a Cost: Prompting Large Language Models for Perception-Centered Gendered Style Transfer](https://aclanthology.org/2026.emnlp-main.2477/) (Chen et al., EMNLP 2026)
+
+
 
 
 
