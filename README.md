@@ -30,25 +30,7 @@ The generated texts are research artifacts and should not be used for demographi
 
 ## Citation
 
-@inproceedings{chen-etal-2026-contrast,
-    title = "Contrast Comes at a Cost: Prompting Large Language Models for Perception-Centered Gendered Style Transfer",
-    author = "Chen, Hongyu  and
-      Falk, Neele  and
-      Roth, Michael  and
-      Falenska, Agnieszka",
-    editor = "Lee, Hung-Yi  and
-      Dev, Sunipa  and
-      Li, Jessy  and
-      Elliott, Desmond",
-    booktitle = "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing",
-    month = oct,
-    year = "2026",
-    address = "Budapest, Hungary",
-    publisher = "Association for Computational Linguistics",
-    url = "https://aclanthology.org/2026.emnlp-main.2477/",
-    pages = "56220--56258",
-    ISBN = "979-8-89176-459-0",
-}
+[Contrast Comes at a Cost: Prompting Large Language Models for Perception-Centered Gendered Style Transfer](https://aclanthology.org/2026.emnlp-main.2477/) (Chen et al., EMNLP 2026)
 
 
 
